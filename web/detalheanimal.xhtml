@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!--    <h:head>detalhhes</h:head>
+    <h:body>-->
+        
+<ui:decorate template="padrao.xhtml">
+    <ui:define name="conteudo">
+        
+            <p:layoutUnit id="imagens" position="west" resizable="false" style="min-width:200px;min-height:200px;" >
+<!--                    <p:lightBox styleClass="imagebox" id="lighbox1">  
+                    <h:outputLink value="../../resources/demo/images/nature/nature1.jpg" title="Nature 1">  
+                        <h:graphicImage name="/demo/images/nature/nature1.jpg" id="nature1" style="height: 77px; width: 100px" />  
+                    </h:outputLink>
+
+                    <h:outputLink value="../../resources/demo/images/nature/nature2.jpg" title="Nature 2">  
+                        <h:graphicImage name="/demo/images/nature/nature2.jpg" id="nature2" style="height: 77px; width: 100px" />  
+                    </h:outputLink>
+
+                    <h:outputLink value="../../resources/demo/images/nature/nature3.jpg" title="Nature 3">  
+                        <h:graphicImage name="/demo/images/nature/nature3.jpg" id="nature3" style="height: 77px; width: 100px" />  
+                    </h:outputLink>
+
+                    <h:outputLink value="../../resources/demo/images/nature/nature4.jpg" title="Nature 4">  
+                        <h:graphicImage name="/demo/images/nature/nature4.jpg" id="nature4" style="height: 77px; width: 100px" />  
+                    </h:outputLink>
+                </p:lightBox>         -->               
+            </p:layoutUnit>
+           <!--<p:layoutUnit id="dados" position="center" resizable="false" style="min-height:200px;">-->
+           <!--<p:layoutUnit position="east">-->
+               <h:form id="detAnimal">
+
+                    <p:tooltip/>
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+     
+                    <h:panelGrid columns="2" id="gridDados">
+                        <p:outputLabel value="Nome:"/>    
+                        <p:outputLabel value="#{animalController.animal.descricao}"/> 
+                        <p:outputLabel value="Idade:"/>
+                        <p:outputLabel value="#{animalController.animal.idadeExtenso}"/> 
+                        <p:outputLabel value="Histórico:"/>
+                        <p:outputLabel value="#{animalController.animal.historico}"/>
+                        <p:commandButton id="btnContato" type="button" value="Adotar"/>
+                    </h:panelGrid>        
+          
+                    <p:overlayPanel id="contato" for="btnContato" hideEvent="mousedown" hideEffect="fade" showCloseIcon="true" dynamic="true" style="width:400px" >
+                            <p:panelGrid columns="1">
+                              <p:outputLabel value="nome: #{clienteController.cliente.nome}"/>
+                              <p:outputLabel value="telefone: #{clienteController.cliente.telefone}"/>
+                              <p:inputTextarea value="#{clienteController.msg}" />
+<!--                              <p:inputText value="" placeholder="Nome"/>
+                              <p:inputText value="" placeholder="Email"/>
+                              <p:inputText value="" placeholder="Telefone"/>-->
+                              <p:commandButton value="Enviar Mensagem" actionListener="#{clienteController.enviarMsg()}" update="detAnimal" />
+                            </p:panelGrid>    
+                     </p:overlayPanel>
+               </h:form> 
+           <!--</p:layoutUnit>-->
+                   
+        <!--</p:layout>-->
+    <!--</h:body>-->
+    </ui:define>
+</ui:decorate>
+</html>
+

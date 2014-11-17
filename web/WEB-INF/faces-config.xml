@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+
+    
+    <managed-bean> 
+        <managed-bean-name>AlienteController</managed-bean-name> 
+        <managed-bean-class>br.com.bean.ClienteController</managed-bean-class> 
+        <managed-bean-scope>session</managed-bean-scope> 
+    </managed-bean> 
+    
+    <managed-bean> 
+        <managed-bean-name>AnimalController</managed-bean-name> 
+        <managed-bean-class>br.com.bean.AnimalController</managed-bean-class> 
+        <managed-bean-scope>session</managed-bean-scope> 
+    </managed-bean>
+
+    <managed-bean> 
+        <managed-bean-name>UsuarioLogadoController</managed-bean-name> 
+        <managed-bean-class>br.com.bean.UsuarioLogadoController</managed-bean-class> 
+        <managed-bean-scope>session</managed-bean-scope> 
+    </managed-bean> 
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>animaisdisponiveis</from-outcome>
+            <to-view-id>/animaisdisponiveis.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>administracao</from-outcome>
+            <to-view-id>/administracao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>meusanimais</from-outcome>
+            <to-view-id>/meusAnimais.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/administracao.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarclientes</from-outcome>
+            <to-view-id>/listarclientes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadclientes</from-outcome>
+            <to-view-id>/cadclientes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listaranimais</from-outcome>
+            <to-view-id>/listaranimais.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadanimais</from-outcome>
+            <to-view-id>/cadanimais.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/meusAnimais.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadanimais</from-outcome>
+            <to-view-id>/cadanimais.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/animaisdisponiveis.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detalheanimal</from-outcome>
+            <to-view-id>/detalheanimal.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

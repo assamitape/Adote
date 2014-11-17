@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:decorate template="padrao.xhtml">
+        <ui:define name="conteudo">
+            <center>
+                <h:form>
+                    <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
+                    <h:panelGrid columns="3" id="gridclientes">
+                        <p:outputLabel value="Email: "/>
+                        <p:inputText id="email" value="#{clienteController.cliente.email}" required="true" requiredMessage="O campo nome deve ser preenchido"/>
+                        <p:message for="email"/>
+                        
+                        <p:outputLabel value="Senha: "/>
+                        <p:inputText id="senha" value="#{clienteController.cliente.senha}" required="true" requiredMessage="O campo raça deve ser preenchido"/>
+                        <p:message for="senha"/>
+
+                        <p:outputLabel value="nome: "/>
+                        <p:inputText id="nome" value="#{clienteController.cliente.nome}" required="true" requiredMessage="O campo raça deve ser preenchido"/>
+                        <p:message for="nome"/>
+
+                        <p:outputLabel value="telefone: "/>
+                        <p:inputMask id="telefone" mask="(99)9999-99999"  value="#{ clienteController.cliente.telefone}"/>
+                        <p:message for="telefone"/>
+
+                    </h:panelGrid>
+                    
+                    <p:commandButton value="Salvar" rendered="#{clienteController.isExibeBtnSalvar()}" update="gridclientes" action="#{clienteController.salvaCliente()}"/>
+
+                    <p:commandButton value="Alterar" rendered="#{clienteController.isExibeBtnAlterar()}" update="gridclientes" action="#{clienteController.alteraCliente()}"/>
+
+
+                </h:form>
+          </center>
+        </ui:define>
+    </ui:decorate>
+
+</html>
+

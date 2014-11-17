@@ -1,0 +1,50 @@
+/* 
+    Created on : 02/11/2014, 21:08:13
+    Author     : Igor
+*/
+
+body{
+    font-size: 12px;
+}
+
+.menuMiddle{
+   
+    /*padding-left: 31%;*/
+   // position:absolute;
+   // left:50%;
+    //margin-left: -450px; /* metade da largura */
+    width:100%;
+    font-weight: bold;
+    border-width: 0;
+}
+.menuMiddle :hover{
+/*     -webkit-box-shadow: 0px 0px 0 #333;
+     -moz-box-shadow: 0px 0px 0 #333;
+     box-shadow: 0px 0px 0 #333;*/
+/*     border-width: 0px;*/
+   //  background-color: transparent;
+}
+
+.meusAnimais{
+    
+ //  padding-left: 25%;
+    border-width: 0px;
+    
+}
+
+.subMenuMiddle {
+/*    background-color: darkorange;
+ border-width: 0px;*/
+}
+
+/*#container {
+    border-width: 0px;
+    position:absolute;
+    left:50%;
+    margin-left: -300px;  metade da largura 
+    width:600px;
+}*/
+
+.semTraco{
+    text-decoration: none;
+}

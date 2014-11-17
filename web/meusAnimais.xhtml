@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!--    <h:head>
+        <title>Meus Animais</title>
+    </h:head>
+    <h:body>-->
+    <ui:decorate template="padrao.xhtml">
+        <ui:define name="conteudo">
+            <p:layout>
+                <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
+                <p:layoutUnit position="center"  style="max-width: 100%" styleClass="meusAnimais">
+                    <center> 
+                        
+                    <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
+                        
+                    <h:form id="frm"> 
+                        <p:tooltip/>
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                        <!--<p:dataScroller value="#{clienteController.listaAnimalCliente}" var="lista" chunkSize="10" >-->
+                        <p:dataTable id="tableMeusAnimais" value="#{clienteController.listaAnimalCliente}" var="lista" 
+                                     selectionMode="single"  emptyMessage="Não há animais cadastrados." selection="#{animalController.animal}" rowKey="#{lista.id}">
+
+<!--                        <p:column headerText="ID">
+                            <p:outputLabel value="#{lista.id}"/>
+                        </p:column>-->
+
+                        <p:column headerText="NOME">
+                            <p:outputLabel value="#{lista.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="IDADE">
+                            <p:outputLabel value="#{lista.getIdadeExtenso()}">
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="SEXO">
+                            <p:outputLabel value="#{lista.getSexoExtenso()}">
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="HISTORICO">
+                            <p:outputLabel value="#{lista.historico}"/>
+                        </p:column>
+
+                        <p:column headerText="STATUS">
+                            <p:outputLabel value="#{lista.getStausExtenso()}"/>
+                        </p:column>
+
+                        <p:column headerText="vacinado">
+                            <p:outputLabel value="#{lista.getCampoSn(lista.vacinado)}"/>
+                        </p:column>
+
+                        <p:column headerText="vermifugado">
+                            <p:outputLabel value="#{lista.getCampoSn(lista.vermifugado)}"/>
+                        </p:column>
+
+<!--                        <p:column headerText="Dono">
+                            <p:outputLabel value="#{lista.idCliente}"/>
+                        </p:column>-->
+
+                        <f:facet name="footer" >
+
+
+                            <p:commandButton  icon="ui-icon-search" value="Adicionar" actionListener="#{animalController.novoAnimal()}"  action="/cadanimais?faces-redirect=true" />
+
+                            <p:commandButton  process="tableMeusAnimais" icon="ui-icon-search" value="Editar" actionListener="#{animalController.escondeBtnSalvar()}" action="/cadanimais?faces-redirect=true" />
+
+                            <p:commandButton  icon="ui-icon-search" value="Sinalizar Adoção" actionListener="#{animalController.sinalizarAdocao()}" update="tableMeusAnimais"  />
+                            
+                            <p:commandButton value="Remover" actionListener="#{animalController.deletaAnimal()}" update="tableMeusAnimais" >
+                                <p:confirm header="Atenção" message="Deseja deletar o animal #{lista.nome}?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="no" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+
+
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>    
+</center>
+                </p:layoutUnit>
+            </p:layout>   
+        </ui:define>
+    </ui:decorate>            
+    <!--</h:body>-->
+</html>
+

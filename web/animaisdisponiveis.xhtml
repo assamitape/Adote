@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:decorate id="decorate" template="padrao.xhtml">
+        <ui:define id="define" name="conteudo">
+            <!--<p:layout>-->
+                <!--<p:layoutUnit position="center" >-->
+<p:outputLabel value="#{animalController.carregaFotos()}"/>
+                    <h:form id="form" style="max-width: 500px" >
+                        
+                        <p:dataGrid var="lista" value="#{animalController.listaAnimaisParaDoacao}" columns="4" 
+                                    rows="12" paginator="true" id="lista" emptyMessage="Não há animais disponíveis."
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16" style="max-width: 500px"  >
+                            <p:panel>
+                                <center>
+                                    <h:panelGrid  columns="1"  width="150" >
+                                    <p:commandLink oncomplete="PF('carDialog').show()" title="Detalhes">
+                                        <p:graphicImage  url="/temp/#{lista.id}.jpg" width="150" height="150">
+                                            <f:param name="image_id" value="#{lista.idimagem}"/>
+                                        </p:graphicImage>
+                                        <h:outputText styleClass="semTraco" value="#{lista.descricao}" style="alignment-adjust: central"/>
+                                         <br/>
+                                        <h:outputText styleClass="semTraco" value="#{lista.getSexoExtenso()}"/>
+                                        <f:setPropertyActionListener value="#{lista}" target="#{animalController.animal}" />    
+
+                                    </p:commandLink> 
+                                </h:panelGrid>
+                                   
+                                </center>  
+                            </p:panel> 
+                        </p:dataGrid>
+                    <!--</h:form>-->            
+
+                <!--<h:form id="formDialog">-->         
+                    <p:dialog id="dialog" header="Car Info" widgetVar="carDialog" rendered="#{not empty animalController.animal}" 
+                              modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
+<!--columnClasses="label,value"-->
+                            <p:outputPanel id="animalDetail" style="min-width: 300px">
+                                <p:panelGrid  columns="2"  >
+                                    <p:panelGrid columns="1">
+                                        <p:lightBox>
+                                        </p:lightBox>
+                                    </p:panelGrid>
+                                    <h:panelGrid columns="1" style="width:50%">
+                                        <p:outputLabel value="Oi! Me chamo #{animalController.animal.descricao}"/>    
+                                        <p:outputLabel value="Tenho #{animalController.animal.idadeExtenso}"/>
+                                        <p:outputLabel value="Meu histórico #{animalController.animal.historico}"/>
+                                        <p:commandButton id="btnContato" type="button" value="Adotar"/>
+                                    </h:panelGrid>  
+                                </p:panelGrid>
+                            </p:outputPanel>    
+                    </p:dialog>                                       
+                </h:form>
+    
+                <!--</p:layoutUnit>-->
+            <!--</p:layout>-->
+        </ui:define>
+    </ui:decorate>            
+</html>
+

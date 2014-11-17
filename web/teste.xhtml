@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
+        <title>Adote um vira-lata</title>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="css/site_global.css?365011649"/>
+	<link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?4160894166"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css?4056620814" id="pagesheet"/>
+    </h:head>
+    <h:body>    
+        <p:layout>
+            <p:layoutUnit position="center">
+        <h:form>
+            <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();"/> 
+            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="false" height="100">
+                <h:outputText value="This is a Modal Dialog." />
+            </p:dialog>                              
+        </h:form>
+                </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
+

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Adote um vira-lata</title>
+        <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
+        
+        <link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        
+    </h:head>
+    <h:body>
+        <p:layout >
+            <p:layoutUnit  position="west" size="190"  style="min-height: max-content; border-width: 0px">
+                <!--<center>-->
+                <!--<p:graphicImage url="/imagens/crio_adote_marca_vertical.png"/>-->
+                
+                <!--  <div class="clearfix" id="page"> column -->
+                   <!--<div class="position_content" id="page_position_content">-->
+                    <!--<div class="clearfix colelem" id="pu132"> group -->
+                     <div id="u132"><!-- simple frame --></div>
+                     <div class="clip_frame" id="u156"><!-- image -->
+                      <img class="block" id="u156_img" src="imagens/crio_adote_marca_vertical.png" alt="" width="171" height="259"/>
+                     </div>
+                    <!--</div>-->    
+                   <!--</div>-->
+                      <!--</div>-->
+                
+                
+                <div class="clearfix colelem" id="pu141">  
+                 <div class="position_content" id="pu141_position_content">
+                  <div class="pinned-colelem" id="u141"> </div>
+
+                                <h:link id="u277-4"  styleClass="nonblock nontext clearfix pinned-colelem" >
+                                    REDE DE ADOÇÃO
+                                </h:link>
+                                <h:link id="u185-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                                    PROGRAMA
+                                </h:link>    
+                                <h:link id="u273-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                                    ATIVIDADES
+                                </h:link>    
+                                <h:link id="u269-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                                    NOVA MARCA
+                                </h:link>    
+                                <h:link id="u186-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                                    VIRA&#45;LATA
+                                </h:link>    
+                                <h:link id="u270-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                                    CONTATO
+                                </h:link>  
+                 </div>
+                </div>                
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" style="min-height: max-content; border-width: 0px">
+                <h:form enctype="multipart/form-data">
+                    <center>
+                        <p:graphicImage url="/imagens/crio_adote_marca_sombra002.png" />
+                    </center>
+                   <!--style="padding-left: 30%"-->
+                    <p:menubar  >
+                        <p:menuitem style="left: 50%"  value="ENTRAR" url="./login.jsf"/>
+                        <p:submenu  label="MEU CADASTRO">
+                            <p:menuitem  value="ATUALIZAR CADASTRO" actionListener="#{clienteController.escondeBtnSalvar()}" url="./cadclientes.jsf"/>
+                            <p:menuitem  value="MEUS ANIMAIS"  url="./meusAnimais.jsf"/>
+                        </p:submenu>  
+                        <p:menuitem value="CADASTRO DE ANIMAIS" url="./cadanimais.jsf"  actionListener="#{animalController.novoAnimal()}"/>
+                        <p:menuitem value="PARA ADOÇÃO" url="./animaisdisponiveis.jsf" />
+                        <p:menuitem value="SAIR" actionListener="#{clienteController.logout()}" />
+                        
+                    </p:menubar> 
+<br/>
+                    <ui:insert name="conteudo">
+                    </ui:insert>
+                </h:form>    
+            </p:layoutUnit>
+            
+<!--            <p:layoutUnit position="south" size="100" style="position: absolute">
+                ddddd
+            </p:layoutUnit>-->
+        </p:layout>
+          
+    </h:body>
+</html>
+
