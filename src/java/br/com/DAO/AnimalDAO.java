@@ -28,8 +28,8 @@ private static final long serialVersionUID = 1L;
         
         try {
             
-            String sql = "INSERT INTO ANIMAL(DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, VERMIFUGADO, SEXO, FOTO_PRINCIPAL) VALUES"+
-                         "(?,?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO ANIMAL(DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, VERMIFUGADO, SEXO, FOTO_PRINCIPAL, FOTO1, FOTO2, FOTO3) VALUES"+
+                         "(?,?,?,?,?,?,?,?,?,?,?,?);";
        
             /*FileInputStream fis; 
             
@@ -50,6 +50,9 @@ private static final long serialVersionUID = 1L;
             stm.setString(7, animal.getVermifugado());
             stm.setString(8, animal.getSexo());
             stm.setBytes(9, animal.getFotoPrincipal());
+            stm.setBytes(10, animal.getFoto1());
+            stm.setBytes(11, animal.getFoto2());
+            stm.setBytes(12, animal.getFoto3());
             
             stm.execute();
             con.getConnection().commit();
@@ -67,7 +70,7 @@ private static final long serialVersionUID = 1L;
         
         try{
             String sql = "UPDATE ANIMAL SET DESCRICAO = ? , IDADE = ? , HISTORICO = ? , STATUS = ? , VACINADO = ? , VERMIFUGADO = ? "+
-                         ", SEXO = ? , FOTO_PRINCIPAL = ?  WHERE ID = ?";
+                         ", SEXO = ? , FOTO_PRINCIPAL = ?, FOTO1 = ?, FOTO2 = ?, FOTO3 = ?  WHERE ID = ?";
 
             PreparedStatement stm = con.getConnection().prepareStatement(sql);
             stm.setString(1, animal.getDescricao());
@@ -78,7 +81,10 @@ private static final long serialVersionUID = 1L;
             stm.setString(6, animal.getVermifugado());
             stm.setString(7, animal.getSexo());
             stm.setBytes(8, animal.getFotoPrincipal());
-            stm.setInt(9, animal.getId());
+            stm.setBytes(9, animal.getFoto1());
+            stm.setBytes(10, animal.getFoto2());
+            stm.setBytes(11, animal.getFoto3());
+            stm.setInt(12, animal.getId());
             
             stm.execute();
             con.getConnection().commit();
@@ -151,7 +157,10 @@ private static final long serialVersionUID = 1L;
         
         try {
             
-        String sql = "SELECT ID, DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, VERMIFUGADO, SEXO, FOTO_PRINCIPAL FROM ANIMAL WHERE STATUS = 'D' ";
+        String sql = "SELECT A.ID, A.DESCRICAO, A.IDADE, A.HISTORICO, A.STATUS, A.ID_CLIENTE, "
+                + "   A.VACINADO, A.VERMIFUGADO, A.SEXO, A.FOTO_PRINCIPAL, A.FOTO1, A.FOTO2, A.FOTO3, "
+                + "   C.BAIRRO, C.CIDADE, C.ESTADO"
+                + "   FROM ANIMAL A, CLIENTE C WHERE A.ID_CLIENTE = C.ID AND A.STATUS = 'D' ";
         PreparedStatement stm = con.getConnection().prepareStatement(sql);
         ResultSet rs = stm.executeQuery();
         
@@ -168,6 +177,12 @@ private static final long serialVersionUID = 1L;
             animal.setVermifugado(rs.getString("VERMIFUGADO"));
             animal.setSexo(rs.getString("SEXO"));
             animal.setFotoPrincipal(rs.getBytes("FOTO_PRINCIPAL"));
+            animal.setFoto1(rs.getBytes("FOTO1"));
+            animal.setFoto2(rs.getBytes("FOTO2"));
+            animal.setFoto3(rs.getBytes("FOTO3"));
+            animal.setCliBairro(rs.getString("BAIRRO"));
+            animal.setCliCidade(rs.getString("CIDADE"));
+            animal.setCliEstado(rs.getString("ESTADO"));
             lista.add(animal);
         }
         stm.close();

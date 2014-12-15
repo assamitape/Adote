@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Conexao {
     private final String driver = "org.postgresql.Driver";
-    private final String url ="jdbc:postgresql://localhost:5432/adoteumcao";
+    private final String url ="jdbc:postgresql://localhost:5432/adoteumv_adoteumcao";
     private final String usuario = "postgres";
     private final String senha = "542270544";
     private Connection con;

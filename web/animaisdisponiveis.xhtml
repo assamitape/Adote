@@ -5,55 +5,95 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+<!--    <head>
+        <meta http-equiv="refresh" content="0; URL=animaisdisponiveis.jsf" />
+    </head>  -->
     <ui:decorate id="decorate" template="padrao.xhtml">
         <ui:define id="define" name="conteudo">
+
             <!--<p:layout>-->
                 <!--<p:layoutUnit position="center" >-->
-<p:outputLabel value="#{animalController.carregaFotos()}"/>
+
+                <p:outputLabel value="#{animalController.carregaFotosNoCadastro()}"/>
                     <h:form id="form" style="max-width: 500px" >
                         
-                        <p:dataGrid var="lista" value="#{animalController.listaAnimaisParaDoacao}" columns="4" 
+                        <p:dataGrid var="lista" value="#{animalController.listaAnimaisParaDoacao}" columns="3" 
                                     rows="12" paginator="true" id="lista" emptyMessage="Não há animais disponíveis."
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="6,12,16" style="max-width: 500px"  >
-                            <p:panel>
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+                                               {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16" style="max-width: 500px; border-width: 0px"  >
+                            <p:panel style="max-width: 350px">
                                 <center>
-                                    <h:panelGrid  columns="1"  width="150" >
-                                    <p:commandLink oncomplete="PF('carDialog').show()" title="Detalhes">
-                                        <p:graphicImage  url="/temp/#{lista.id}.jpg" width="150" height="150">
-                                            <f:param name="image_id" value="#{lista.idimagem}"/>
-                                        </p:graphicImage>
-                                        <h:outputText styleClass="semTraco" value="#{lista.descricao}" style="alignment-adjust: central"/>
-                                         <br/>
-                                        <h:outputText styleClass="semTraco" value="#{lista.getSexoExtenso()}"/>
-                                        <f:setPropertyActionListener value="#{lista}" target="#{animalController.animal}" />    
-
-                                    </p:commandLink> 
-                                </h:panelGrid>
-                                   
+                                    <p:commandLink update=":formPrincipal:form:animalDetail" style="text-decoration: none;" 
+                                                   oncomplete="PF('detDialog').show()" onclick="#{animalController.iniciaFotos(lista.id)}" actionListener="#{clienteController.retornaCliente(lista.idCliente)}" title="Detalhes" >
+                                        <h:panelGrid  columns="2"  >
+                                            
+                                            <p:graphicImage  style="padding-right: 10%" url="/temp/#{lista.id}_princ.jpg" width="130" height="130">
+                                                <f:param name="image_id" value="#{lista.idimagem}"/>
+                                            </p:graphicImage>
+                                            
+                                            <h:panelGrid  columns="1" width="130"  >
+                                                <h:outputText styleClass="semTraco" value="#{lista.descricao}" style="alignment-adjust: central"/>
+                                                <h:outputText styleClass="semTraco" value="#{lista.getSexoExtenso()}"/>
+                                                <h:outputText styleClass="semTraco" value="#{lista.cliBairro}"/>
+                                                <h:outputText styleClass="semTraco" value="#{lista.cliCidade} - #{lista.cliEstado}"/>
+                                            </h:panelGrid>
+                                            
+                                        </h:panelGrid>
+                                        <f:setPropertyActionListener value="#{lista}" target="#{animalController.animal}" /> 
+                                    </p:commandLink>
                                 </center>  
                             </p:panel> 
                         </p:dataGrid>
                     <!--</h:form>-->            
 
-                <!--<h:form id="formDialog">-->         
-                    <p:dialog id="dialog" header="Car Info" widgetVar="carDialog" rendered="#{not empty animalController.animal}" 
+                <!--<h:form id="formDialog">   "-->         
+                    <p:dialog id="dialog" header="Detalhes" widgetVar="detDialog" rendered="#{not empty animalController.animal}" 
                               modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
-<!--columnClasses="label,value"-->
-                            <p:outputPanel id="animalDetail" style="min-width: 300px">
-                                <p:panelGrid  columns="2"  >
-                                    <p:panelGrid columns="1">
-                                        <p:lightBox>
+                        
+                        <p:tooltip/>
+                        <p:messages id="messagesDet" showDetail="true" autoUpdate="true" closable="true" />
+                            <p:outputPanel id="animalDetail" style="border-color: transparent; width: 480px;">
+                                <!--<p:panelGrid  columns="1" style="width: 100%; border-color: transparent" >-->
+                                    
+                                    <!--<p:panelGrid columns="1" style="width: 480px; border-width: 0px; border-style: none">-->        
+                                        <p:lightBox  >
+                                            <h:outputLink value="./temp/#{animalController.animal.id}_princ.jpg" >
+                                                <p:graphicImage style="padding-left: 3% " rendered="#{animalController.exibeFotoPrincipal}" url="/temp/#{animalController.animal.id}_princ.jpg"  cache="false" width="100" height="100"/>
+                                            </h:outputLink>
+                                            
+                                            <h:outputLink value="./temp/#{animalController.animal.id}_1.jpg">
+                                                <p:graphicImage style="padding-left: 3% " rendered="#{animalController.exibeFoto1}" url="/temp/#{animalController.animal.id}_1.jpg" cache="false" width="100" height="100"/>
+                                            </h:outputLink>
+                                            
+                                            <h:outputLink value="./temp/#{animalController.animal.id}_2.jpg">
+                                                <p:graphicImage style="padding-left: 3% " rendered="#{animalController.exibeFoto2}" url="/temp/#{animalController.animal.id}_2.jpg" cache="false" width="100" height="100"/>
+                                            </h:outputLink>
+                                            
+                                            <h:outputLink value="./temp/#{animalController.animal.id}_3.jpg">
+                                                <p:graphicImage style="padding-left: 3% " rendered="#{animalController.exibeFoto3}" url="/temp/#{animalController.animal.id}_3.jpg" cache="false" width="100" height="100"/>                                          
+                                            </h:outputLink>
                                         </p:lightBox>
-                                    </p:panelGrid>
-                                    <h:panelGrid columns="1" style="width:50%">
-                                        <p:outputLabel value="Oi! Me chamo #{animalController.animal.descricao}"/>    
-                                        <p:outputLabel value="Tenho #{animalController.animal.idadeExtenso}"/>
-                                        <p:outputLabel value="Meu histórico #{animalController.animal.historico}"/>
-                                        <p:commandButton id="btnContato" type="button" value="Adotar"/>
-                                    </h:panelGrid>  
-                                </p:panelGrid>
+                                    <p:separator style="height: 1px" ></p:separator>
+                                        <!--<h:panelGrid columns="2" style="width: 100%; border-width: 0px" >-->
+                                            <p:outputLabel value="Oi! Me chamo: #{animalController.animal.descricao}" /> <br/>
+<!--                                            <p:outputLabel value=" #{animalController.animal.descricao}"/> -->
+                                             
+
+                                            <p:outputLabel value="Tenho: #{animalController.animal.idadeExtenso}"/><br/>
+<!--                                            <p:outputLabel value=" #{animalController.animal.idadeExtenso}"/>-->
+                                            
+                                            <p:outputLabel  value="Meu histórico: #{animalController.animal.historico}"/><br/>
+                                            <!--<p:outputLabel value=" #{animalController.animal.historico}"/>-->
+                                        <!--</h:panelGrid>-->  
+
+                                        <br/>
+                                        <p:outputLabel value="Nome: #{clienteController.cliente.nome}"/><br/>
+                                        <p:outputLabel value="Email: #{clienteController.cliente.email}"/><br/>
+                                        <p:outputLabel value="Telefone: #{clienteController.cliente.telefone}"/><br/>
+                                        
+<!--                                    </p:panelGrid>    -->
+                                <!--</p:panelGrid>-->
                             </p:outputPanel>    
                     </p:dialog>                                       
                 </h:form>

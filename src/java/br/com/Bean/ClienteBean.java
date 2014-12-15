@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class ClienteBean implements Serializable {
-
+private static final long serialVersionUID = 1L;
     private static ClienteBean instancia = null;
     private int id;
     private String nome;
     private String email;
     private String senha;
-    private String    telefone;
+    private String telefone;
     private String snAtivo;
+    private String estado;
+    private String cidade;
+    private String bairro;
+    private String msgEmail;
+    
     
 
     public ClienteBean() {
@@ -36,6 +41,38 @@ public class ClienteBean implements Serializable {
         this.id = idCliente;
         this.nome = nomeCliente;
         this.snAtivo = snAtivo;
+    }
+
+    public String getMsgEmail() {
+        return msgEmail;
+    }
+
+    public void setMsgEmail(String msgEmail) {
+        this.msgEmail = msgEmail;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
     
     public String getEmail() {

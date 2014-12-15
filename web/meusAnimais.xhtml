@@ -12,12 +12,13 @@
     <ui:decorate template="padrao.xhtml">
         <ui:define name="conteudo">
             <p:layout>
-                <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
+               
                 <p:layoutUnit position="center"  style="max-width: 100%" styleClass="meusAnimais">
                     <center> 
                         
-                    <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
-                        
+                        <p:panel visible="false">
+                            <h:outputText value="#{clienteLogadoController.verificaLogado()}" />
+                        </p:panel>
                     <h:form id="frm"> 
                         <p:tooltip/>
                         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />

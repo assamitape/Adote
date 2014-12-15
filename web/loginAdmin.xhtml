@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Administração</title>
+    </h:head>
+    <h:body>
+        <p:layout>
+            <p:layoutUnit position="north" style="min-height: 180px; border-width: 0px"/>
+            <p:layoutUnit position="center" style="min-height: 200px; border-width: 0px ">
+                                
+                <center>
+                    Área Administrativa
+                
+                <h:form>
+                    <h:outputText value="#{usuarioLogadoController.controlaTelaLogin()}"/> 
+                    <p:growl id="growlLogin"  sticky="true" />
+                    <!--<p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />-->
+                    
+                 
+                    <h:panelGrid columns="2" id="gridusuarios">
+                        <p:outputLabel value="Login "/>
+                        <p:inputText id="login" value="#{usuarioLogadoController.user.login}" requiredMessage="O login deve ser informado"/>
+                        
+                        <p:outputLabel value="Senha "/>
+                        <p:password id="senha" value="#{usuarioLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
+                    <br/>
+                    </h:panelGrid>
+                    <p:commandButton value="Entrar" update="growlLogin" actionListener="#{usuarioLogadoController.fazerLogin(usuarioLogadoController.user.login, usuarioLogadoController.user.senha)}" />
+                       <br/> <br/>
+                        <!--<p:commandLink value="Esqueci Minha Senha" />-->
+
+                </h:form>
+                    </center>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
+

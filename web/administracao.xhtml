@@ -14,6 +14,7 @@
             <p:layoutUnit position="west" size="280" >
 <!--menu lateral sistema-->        
                 <h:form >
+                    <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
                     <p:menu>
                         <p:menuitem value="Pagina Inicial"   action="index">
                         </p:menuitem>
@@ -28,11 +29,7 @@
                         </p:menuitem>
                         <p:menuitem value="Animais Disponiveis" action="animaisdisponiveis">
                         </p:menuitem>
-                        <p:menuitem value="Usuários do Sistema" >
-                        </p:menuitem>
-                        <p:menuitem value="teste Login" action="login" >
-                        </p:menuitem>
-                        <p:menuitem value="TESTE PADRAO" action="padrao" >
+                        <p:menuitem value="Sair" action="/cadanimais?faces-redirect=true" actionListener="#{usuarioController.logout()}">
                         </p:menuitem>
 
                     </p:menu>

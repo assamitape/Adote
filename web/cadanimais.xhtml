@@ -13,8 +13,10 @@
         <ui:define name="conteudo">
             <center>
 
+                <p:outputLabel value="#{animalController.carregaFotos()}"/>
+
             <h:form enctype="multipart/form-data">
-                <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
+                <h:outputText value="#{clienteController.verificaLogado()}"/>
                 <h:panelGrid columns="3" id="gridanimais">
                         
                     <p:outputLabel value="Nome: "/>
@@ -72,16 +74,52 @@
                 </h:panelGrid>
                 
                 <h:panelGrid columns="1" width="350">
-                    <p:fileUpload fileUploadListener="#{animalController.handleFileUpload}" 
-                                  label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                                  invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
-                                  invalidFileMessage="Tipo de imagem não suportado" fileLimit="1"
-                                  multiple="false" allowTypes="/(\.|\/)(jpe?g)$/"  />
+                    <h:form id="formImagens">
+                        
+                        <p:fileUpload fileUploadListener="#{animalController.uploadFotoPrincipal}" 
+                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="imagemTmp" />
+
+                        <p:graphicImage cache="false" id="imagemTmp" value="#{galeriaBean.imagem}" height="300" style="margin: 0 auto;"/>
+
+                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto1}" 
+                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+
+                        <p:graphicImage rendered="#{animalController.exibeFoto1}" url="/temp/#{animalController.animal.id}_1.jpg" width="150" height="150">
+                            <f:param name="image_id" value="#{lista.idimagem}"/>
+                        </p:graphicImage>
+
+                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto2}" 
+                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+
+                        <p:graphicImage rendered="#{animalController.exibeFoto2}" url="/temp/#{animalController.animal.id}_2.jpg" width="150" height="150">
+                            <f:param name="image_id" value="#{lista.idimagem}"/>
+                        </p:graphicImage>
+
+                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto3}" 
+                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+
+                        <p:graphicImage rendered="#{animalController.exibeFoto3}" url="/temp/#{animalController.animal.id}_3.jpg" width="150" height="150">
+                            <f:param name="image_id" value="#{lista.idimagem}"/>
+                        </p:graphicImage>
+                    </h:form>
+
                 </h:panelGrid>    
 <br/><br/>
-                <p:commandButton value="Salvar" rendered="#{animalController.isExibeBtnSalvar()}" update="gridanimais" action="#{animalController.salvaAnimal(usuarioLogadoController.user.id)}"/>
+                <p:commandButton value="Salvar" rendered="#{animalController.isExibeBtnSalvar()}" update="gridanimais" action="#{animalController.salvaAnimal(clienteLogadoController.user.id)}"/>
 
-                <p:commandButton value="Alterar" rendered="#{animalController.isExibeBtnAlterar()}" update="gridanimais" action="#{animalController.alteraAnimal()}"/>
+                <p:commandButton value="Alterar" rendered="#{clienteLogadoController.clienteLogado}" update="gridanimais" action="#{animalController.alteraAnimal()}"/>
 
                 <!--<p:commandButton value="Limpar" type="reset" update="gridanimais"/>-->
 

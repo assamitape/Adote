@@ -2,7 +2,6 @@ package br.com.Bean;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.sql.Date;
-import javax.persistence.criteria.CriteriaBuilder;
 
 
 public class AnimalBean implements Serializable{
@@ -18,7 +17,13 @@ public class AnimalBean implements Serializable{
     private String vermifugado;
     private int    idCliente;
     private byte[] fotoPrincipal;
+    private byte[] foto1;
+    private byte[] foto2;
+    private byte[] foto3;
     private String sexo;
+    private String cliBairro;
+    private String cliCidade;
+    private String cliEstado;
 
     public AnimalBean() {
     }
@@ -40,6 +45,30 @@ public class AnimalBean implements Serializable{
 
     public void setFotoPrincipal(byte[] fotoPrincipal) {
         this.fotoPrincipal = fotoPrincipal;
+    }
+
+    public byte[] getFoto1() {
+        return foto1;
+    }
+
+    public void setFoto1(byte[] foto1) {
+        this.foto1 = foto1;
+    }
+
+    public byte[] getFoto2() {
+        return foto2;
+    }
+
+    public void setFoto2(byte[] foto2) {
+        this.foto2 = foto2;
+    }
+
+    public byte[] getFoto3() {
+        return foto3;
+    }
+
+    public void setFoto3(byte[] foto3) {
+        this.foto3 = foto3;
     }
     
   
@@ -114,6 +143,30 @@ public class AnimalBean implements Serializable{
 
     public void setVermifugado(String vermifugado) {
         this.vermifugado = vermifugado;
+    }
+
+    public String getCliBairro() {
+        return cliBairro;
+    }
+
+    public void setCliBairro(String cliBairro) {
+        this.cliBairro = cliBairro;
+    }
+
+    public String getCliCidade() {
+        return cliCidade;
+    }
+
+    public void setCliCidade(String cliCidade) {
+        this.cliCidade = cliCidade;
+    }
+
+    public String getCliEstado() {
+        return cliEstado;
+    }
+
+    public void setCliEstado(String cliEstado) {
+        this.cliEstado = cliEstado;
     }
 
     public String getCampoSn(String valor){

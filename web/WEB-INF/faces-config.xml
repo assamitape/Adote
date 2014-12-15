@@ -6,8 +6,8 @@
 
 
     
-    <managed-bean> 
-        <managed-bean-name>AlienteController</managed-bean-name> 
+<!--    <managed-bean> 
+        <managed-bean-name>ClienteController</managed-bean-name> 
         <managed-bean-class>br.com.bean.ClienteController</managed-bean-class> 
         <managed-bean-scope>session</managed-bean-scope> 
     </managed-bean> 
@@ -24,6 +24,12 @@
         <managed-bean-scope>session</managed-bean-scope> 
     </managed-bean> 
 
+    <managed-bean> 
+        <managed-bean-name>ClienteLogadoController</managed-bean-name> 
+        <managed-bean-class>br.com.bean.ClienteLogadoController</managed-bean-class> 
+        <managed-bean-scope>session</managed-bean-scope> 
+    </managed-bean> -->
+    
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>

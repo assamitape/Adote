@@ -10,9 +10,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -40,9 +43,61 @@ public class AnimalController implements Serializable{
     private DataModel listaAnimaisParaDoacao;
     private boolean exibeBtnSalvar;
     private boolean exibeBtnAlterar;
-    private boolean exibeImagem;
+    private boolean exibeFotoPrincipal;
+    private boolean exibeFoto1;
+    private boolean exibeFoto2;
+    private boolean exibeFoto3;
     private UploadedFile file;
+    private List<String> images;
     
+    
+    public void iniciaFotos(int id) {
+        
+//        images = new ArrayList<String>();
+//        images.add(String.valueOf(animal.getId()));
+//        images.add(animal.getId()+"_1");
+//        images.add(animal.getId()+"_2");
+//        images.add(animal.getId()+"_3");
+//        f = new File(sContext.getRealPath("/temp")+"/"+id+"_princ.jpg");
+//        if(f.exists()){
+//            images.add("./temp"+"/"+id+"_princ.jpg");
+//        }
+//
+//        f = new File(sContext.getRealPath("/temp")+"/"+id+"_1.jpg");
+//        if(f.exists()){
+//            images.add("./temp"+"/"+id+"_1.jpg");
+//        }
+//        
+//        f = new File(sContext.getRealPath("/temp")+"/"+id+"_2.jpg");
+//        if(f.exists()){
+//            images.add("./temp"+"/"+id+"_2.jpg");        }
+//        
+//        f = new File(sContext.getRealPath("/temp")+"/"+id+"_3.jpg");
+//        if(f.exists()){
+//            images.add("./temp"+"/"+id+"_3.jpg");
+//        }
+
+        ServletContext sContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext(); 
+        File f; 
+        
+        f = new File(sContext.getRealPath("/temp")+"/"+id+"_princ.jpg");
+        exibeFotoPrincipal =  f.exists();
+        
+        f = new File(sContext.getRealPath("/temp")+"/"+id+"_1.jpg");
+        exibeFoto1 =  f.exists();
+        
+        f = new File(sContext.getRealPath("/temp")+"/"+id+"_2.jpg");
+        exibeFoto2 =  f.exists();
+        
+        f = new File(sContext.getRealPath("/temp")+"/"+id+"_3.jpg");
+        exibeFoto3 =  f.exists();
+        
+        
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
     
     public UploadedFile getFile() {
         return file;
@@ -56,14 +111,38 @@ public class AnimalController implements Serializable{
         return exibeBtnSalvar;
     }
 
-    public boolean isExibeImagem() {
-        return exibeImagem;
+    public boolean isExibeFotoPrincipal() {
+        return exibeFotoPrincipal;
     }
 
-    public void setExibeImagem(boolean exibeImagem) {
-        this.exibeImagem = exibeImagem;
+    public void setExibeFotoPrincipal(boolean exibeFotoPrincipal) {
+        this.exibeFotoPrincipal = exibeFotoPrincipal;
     }
 
+    public boolean isExibeFoto1() {
+        return exibeFoto1;
+    }
+
+    public void setExibeFoto1(boolean exibeFoto1) {
+        this.exibeFoto1 = exibeFoto1;
+    }
+
+    public boolean isExibeFoto2() {
+        return exibeFoto2;
+    }
+
+    public void setExibeFoto2(boolean exibeFoto2) {
+        this.exibeFoto2 = exibeFoto2;
+    }
+
+    public boolean isExibeFoto3() {
+        return exibeFoto3;
+    }
+
+    public void setExibeFoto3(boolean exibeFoto3) {
+        this.exibeFoto3 = exibeFoto3;
+    }    
+    
     public void setExibeBtnSalvar(boolean exibeBtnSalvar) {
         this.exibeBtnSalvar = exibeBtnSalvar;
     }
@@ -78,7 +157,10 @@ public class AnimalController implements Serializable{
 
     public AnimalController() {
         animal = new AnimalBean();
-        this.exibeImagem = Boolean.FALSE;
+        this.exibeFotoPrincipal = Boolean.FALSE;
+        this.exibeFoto1 = Boolean.FALSE;
+        this.exibeFoto2 = Boolean.FALSE;
+        this.exibeFoto3 = Boolean.FALSE;
 
     }
 
@@ -110,7 +192,7 @@ public class AnimalController implements Serializable{
 
     public DataModel getListaAnimaisParaDoacao() {
         try {
-            System.out.println("passou get");
+            
             AnimalDAO animalDAO = new AnimalDAO();
             
             animalDAO.listarAnimalParaDoacao();
@@ -249,11 +331,39 @@ public class AnimalController implements Serializable{
         
     }    
 
-    public void handleFileUpload(FileUploadEvent event) throws IOException {
+    public void uploadFotoPrincipal(FileUploadEvent event) throws IOException {
 
        UploadedFile file = event.getFile();
        byte[] foto = IOUtils.toByteArray(file.getInputstream());
        animal.setFotoPrincipal(foto);
+       setExibeFotoPrincipal(Boolean.TRUE);
+       carregaFotosNoCadastro();
+   }    
+    public void uploadFoto1(FileUploadEvent event) throws IOException {
+
+       UploadedFile file = event.getFile();
+       byte[] foto = IOUtils.toByteArray(file.getInputstream());
+       animal.setFoto1(foto);
+       setExibeFoto1(Boolean.TRUE);
+       carregaFotosNoCadastro();
+
+   }    
+    public void uploadFoto2(FileUploadEvent event) throws IOException {
+
+       UploadedFile file = event.getFile();
+       byte[] foto = IOUtils.toByteArray(file.getInputstream());
+       animal.setFoto2(foto);
+       setExibeFoto2(Boolean.TRUE);
+       carregaFotosNoCadastro();
+
+   }    
+    public void uploadFoto3(FileUploadEvent event) throws IOException {
+
+       UploadedFile file = event.getFile();
+       byte[] foto = IOUtils.toByteArray(file.getInputstream());
+       animal.setFoto3(foto);
+       setExibeFoto3(Boolean.TRUE);
+       carregaFotosNoCadastro();
 
    }    
 
@@ -270,14 +380,13 @@ public class AnimalController implements Serializable{
     }    
 
     public void exibeImagem(){
-        this.setExibeImagem(Boolean.TRUE);
+        this.setExibeFotoPrincipal(Boolean.TRUE);
     }
     
     public void carregaFotos() {
  
         try {
-            System.out.println(animal.getDescricao());
-            System.out.println(Arrays.toString(animal.getFotoPrincipal()));
+            
 //            if (!Arrays.toString(animal.getFotoPrincipal()).isEmpty()){
 
                 ServletContext sContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -303,13 +412,89 @@ public class AnimalController implements Serializable{
         }
  
     }
-   private void criaArquivo(byte[] bytes, String arquivo) {
+
+    public void carregaFotosNoCadastro() {
+ 
+        try {
+            
+//            if (!Arrays.toString(animal.getFotoPrincipal()).isEmpty()){
+
+                ServletContext sContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                AnimalDAO animalDAO = new AnimalDAO();
+                File f;    
+
+                File folder = new File(sContext.getRealPath("/temp"));
+                if (folder.exists()){
+                    folder.delete();
+                    folder.mkdirs();
+                }else{
+                    folder.mkdirs();
+                }
+
+                for (AnimalBean a : animalDAO.listarAnimalParaDoacao()) {
+                    
+
+                    if(!Arrays.toString(a.getFotoPrincipal()).isEmpty() && !Arrays.toString(a.getFotoPrincipal()).equals("null")){
+
+                        String nomeArquivoFotoPrincipal = a.getId()+"_princ" + ".jpg";
+                        String arquivoFotoPrincipal = sContext.getRealPath("/temp") + File.separator
+                                + nomeArquivoFotoPrincipal;
+                        
+                        f = new File(arquivoFotoPrincipal);
+                        
+                        if(!f.exists()){
+                        criaArquivo(a.getFotoPrincipal(), arquivoFotoPrincipal);
+                        }
+                    }
+                
+                    if(!Arrays.toString(a.getFoto1()).isEmpty() && !Arrays.toString(a.getFoto1()).equals("null")){
+                        String nomeArquivo = a.getId() +"_1" +".jpg";
+                        String arquivo = sContext.getRealPath("/temp") + File.separator
+                                + nomeArquivo;
+                        f = new File(arquivo);
+                        
+                        if(!f.exists()){
+                            criaArquivo(a.getFoto1(), arquivo);
+                        }                        
+                    }
+                    
+                    if(!Arrays.toString(a.getFoto2()).isEmpty() && !Arrays.toString(a.getFoto2()).equals("null")){
+                        String nomeArquivo = a.getId()+"_2" + ".jpg";
+                        String arquivo = sContext.getRealPath("/temp") + File.separator
+                                + nomeArquivo;
+                        f = new File(arquivo);
+                        
+                        if(!f.exists()){
+                            criaArquivo(a.getFoto2(), arquivo);
+                        }                    
+                    }
+                    
+                    if(!Arrays.toString(a.getFoto3()).isEmpty() && !Arrays.toString(a.getFoto3()).equals("null")){
+                        String nomeArquivo = a.getId()+"_3" + ".jpg";
+                        String arquivo = sContext.getRealPath("/temp") + File.separator
+                                + nomeArquivo;
+                        f = new File(arquivo);
+                        
+                        if(!f.exists()){
+                            criaArquivo(a.getFoto3(), arquivo);
+                        }                        
+                    }
+                }
+//            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+ 
+    }
+    
+    private void criaArquivo(byte[] bytes, String arquivo) {
         FileOutputStream fos;
  
         try {
+            
             fos = new FileOutputStream(arquivo);
             fos.write(bytes);
- 
+            
             fos.flush();
             fos.close();
         } catch (FileNotFoundException ex) {

@@ -7,7 +7,8 @@
     <h:head>
         <title>Adote um vira-lata</title>
         <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
-        
+        <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
+        <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
         <link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         
@@ -33,43 +34,46 @@
                 <div class="clearfix colelem" id="pu141">  
                  <div class="position_content" id="pu141_position_content">
                   <div class="pinned-colelem" id="u141"> </div>
-
-                                <h:link id="u277-4"  styleClass="nonblock nontext clearfix pinned-colelem" >
-                                    REDE DE ADOÇÃO
-                                </h:link>
-                                <h:link id="u185-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                                    PROGRAMA
-                                </h:link>    
-                                <h:link id="u273-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                                    ATIVIDADES
-                                </h:link>    
-                                <h:link id="u269-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                                    NOVA MARCA
-                                </h:link>    
-                                <h:link id="u186-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                                    VIRA&#45;LATA
-                                </h:link>    
-                                <h:link id="u270-4" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                                    CONTATO
-                                </h:link>  
+               
+                  <h:outputLink id="u277-4"  value="./animaisdisponiveis.jsf" styleClass="nonblock nontext clearfix pinned-colelem" >
+                    ADOTE!
+                  </h:outputLink>    
+                  
+                  <h:outputLink id="u273-4" value="http://blog.adoteumvira-lata.com/#programa" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                   O PROGRAMA
+                  </h:outputLink>    
+                  
+                  <h:outputLink id="u185-4" value="http://blog.adoteumvira-lata.com/#atividades" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                    ATIVIDADES
+                  </h:outputLink>   
+                  
+                  <h:outputLink id="u269-4" value="http://blog.adoteumvira-lata.com/#nova_marca" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                    NOVA MARCA
+                  </h:outputLink>    
+                  
+                  <h:outputLink id="u270-4" value="http://blog.adoteumvira-lata.com/#contato" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
+                    CONTATO
+                  </h:outputLink>  
                  </div>
                 </div>                
             </p:layoutUnit>
             
-            <p:layoutUnit position="center" style="min-height: max-content; border-width: 0px">
-                <h:form enctype="multipart/form-data">
+            <p:layoutUnit position="center" style="height: 100%; border-width: 0px">
+                <h:form id="formPrincipal" enctype="multipart/form-data">
                     <center>
                         <p:graphicImage url="/imagens/crio_adote_marca_sombra002.png" />
                     </center>
                    <!--style="padding-left: 30%"-->
-                    <p:menubar  >
+                    <p:menubar>
                         <p:menuitem style="left: 50%"  value="ENTRAR" url="./login.jsf"/>
-                        <p:submenu  label="MEU CADASTRO">
-                            <p:menuitem  value="ATUALIZAR CADASTRO" actionListener="#{clienteController.escondeBtnSalvar()}" url="./cadclientes.jsf"/>
-                            <p:menuitem  value="MEUS ANIMAIS"  url="./meusAnimais.jsf"/>
+                        <p:menuitem rendered="#{!clienteLogadoController.clienteLogado}"  value="CADASTRAR" url="./cadclientes.jsf"/>
+                        <p:submenu  rendered="#{clienteLogadoController.clienteLogado}" label="MEU CADASTRO">
+                            <p:menuitem value="ATUALIZAR CADASTRO" actionListener="#{clienteController.escondeBtnSalvar()}" />
+                            <p:menuitem value="MEUS ANIMAIS" url="./meusAnimais.jsf"/>
                         </p:submenu>  
-                        <p:menuitem value="CADASTRO DE ANIMAIS" url="./cadanimais.jsf"  actionListener="#{animalController.novoAnimal()}"/>
+                        <p:menuitem rendered="#{clienteLogadoController.clienteLogado}" value="CADASTRO DE ANIMAIS" url="./cadanimais.jsf"  actionListener="#{animalController.novoAnimal()}"/>
                         <p:menuitem value="PARA ADOÇÃO" url="./animaisdisponiveis.jsf" />
+                        <p:menuitem value="ADMINISTRAÇÃO" url="./administracao.jsf"/>
                         <p:menuitem value="SAIR" actionListener="#{clienteController.logout()}" />
                         
                     </p:menubar> 

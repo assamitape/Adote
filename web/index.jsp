@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Inicial</title>
-        <meta http-equiv="refresh" content="0; URL=index.jsf" />
+        <meta http-equiv="refresh" content="0; URL=animaisdisponiveis.jsf" />
     </head>
     <body>
      

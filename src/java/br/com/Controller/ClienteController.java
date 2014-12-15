@@ -7,10 +7,13 @@ import br.com.Utilitarios.Utilidades;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -31,13 +34,28 @@ public class ClienteController implements Serializable{
     private boolean exibeBtnAlterar;    
  //   private boolean exibe
     private boolean isValidaForm;
+    private boolean isExibeEntrar;
     
     /* campos de envio de email*/
     private String msg;
     /* campos de envio de email*/
-    public UsuarioLogadoController user = new UsuarioLogadoController();
+    public ClienteLogadoController user = new ClienteLogadoController();
 
+    @PostConstruct
+    void initialiseSession() {
+        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        exibeEntrar();
+    }
 
+    public boolean isIsExibeEntrar() {
+        return isExibeEntrar;
+    }
+
+    public void setIsExibeEntrar(boolean isExibeEntrar) {
+        this.isExibeEntrar = isExibeEntrar;
+    }
+    
+    
     public String getMsg() {
         return msg;
     }
@@ -46,11 +64,11 @@ public class ClienteController implements Serializable{
         this.msg = msg;
     }
 
-    public UsuarioLogadoController getUser() {
+    public ClienteLogadoController getUser() {
         return user;
     }
 
-    public void setUser(UsuarioLogadoController user) {
+    public void setUser(ClienteLogadoController user) {
         this.user = user;
     }
     
@@ -117,34 +135,48 @@ public class ClienteController implements Serializable{
     
     public String salvaCliente(){
         ClienteDAO clienteDAO = new ClienteDAO();
-        
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        validaCadastro();
         if (isValidaForm){
-            if(clienteDAO.salvarCliente(cliente)){
-//                    FacesContext contexto = FacesContext.getCurrentInstance();
-//                    contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "cadastro com sucesso!", ""));
-                    return "";
+            try {
+                if(clienteDAO.salvarCliente(cliente)){
+                    contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dados cadastrados com sucesso!", ""));
+                    return "Dados cadastrados com sucesso!";
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro ao cadastrar o cliente, Verifique os dados informados.", ""));
         return "Erro ao cadastrar o cliente, Verifique os dados informados.";        
     }
 
     public String alteraCliente(){
         ClienteDAO clienteDAO = new ClienteDAO();
+        try {
             if(clienteDAO.alterarCliente(cliente)){
                 FacesContext contexto = FacesContext.getCurrentInstance();
                 contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "alterado com sucesso!", ""));
-                //return "/listarclientes?faces-redirect=true";
+                return "/meusAnimais?faces-redirect=true";
             }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "";
         
     }
     
     public String deletaCliente(){
         ClienteDAO clienteDAO = new ClienteDAO();
-        if(clienteDAO.excluirCliente(cliente)){
-            FacesContext contexto = FacesContext.getCurrentInstance();
-            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "deletado com sucesso!", ""));
-            //return "/listarclientes?faces-redirect=true";
+        try {
+            if(clienteDAO.excluirCliente(cliente)){
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "deletado com sucesso!", ""));
+                //return "/listarclientes?faces-redirect=true";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "";
@@ -157,13 +189,24 @@ public class ClienteController implements Serializable{
 
     public void retornaCliente(int idCliente) throws SQLException{
         ClienteDAO clienteDAO = new ClienteDAO();
+        
         if(!clienteDAO.retornaCliente(idCliente)){
             FacesContext contexto = FacesContext.getCurrentInstance();
             contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário não encontrado!", ""));
 
         }    
     }
-    
+   
+    public void atualizaCadCliente(){
+        if (user.getClienteLogado()){
+          setExibeBtnAlterar(true);
+          setExibeBtnSalvar(false);
+            
+        }else{
+            setExibeBtnAlterar(false);
+            setExibeBtnSalvar(true);
+        }
+    }
     
     public void escondeBntAlterar(){
         setExibeBtnAlterar(false);
@@ -179,6 +222,7 @@ public class ClienteController implements Serializable{
         }else{ 
           setExibeBtnAlterar(true);
           setExibeBtnSalvar(false);
+          FacesContext.getCurrentInstance().getExternalContext().redirect("./cadclientes.jsf");
         }
 
     }
@@ -211,7 +255,11 @@ public class ClienteController implements Serializable{
        String err = null;
 
        
-       err = clienteDAO.verificaClienteExistente(cliente.getEmail());
+        try {
+            err = clienteDAO.verificaClienteExistente(cliente.getEmail());
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
        if (err != null && err != "" ){  
           contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, err, ""));            
@@ -235,17 +283,20 @@ public class ClienteController implements Serializable{
         return true;
     }
     
-    public void salvarELogar() throws IOException{
+    public String salvarELogar() throws IOException{
         String retorno;
         
         validaCadastro();
         retorno = salvaCliente();
         
-        if (retorno.isEmpty() && retorno.equals("")){
-            //user.fazerLogin(cliente.getEmail(), cliente.getSenha());
-            user.setUsuarioLogado(Boolean.TRUE);
+        if (retorno.isEmpty() || retorno.equals("")){
+           // user.fazerLogin(cliente.getEmail(), cliente.getSenha());
+            
             FacesContext.getCurrentInstance().getExternalContext().redirect("./meusAnimais.jsf");
-        }        
+        //    return "/meusAnimais?faces-redirect=true";
+            
+        }
+        return "";
     } 
  
     public void validaCadastro(){
@@ -269,24 +320,35 @@ public class ClienteController implements Serializable{
       FacesContext contexto = FacesContext.getCurrentInstance();
       String retornoMsg;
       
-      retornoMsg = util.enviaEmail(cliente.getEmail(), cliente.getNome(), "Adoção", msg );
-      
-      if(!retornoMsg.isEmpty()){
-        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, retornoMsg, ""));
-      }       
+      if(!this.getMsg().isEmpty() ){
+        retornoMsg = util.enviaEmail(cliente.getEmail(), cliente.getNome(), "Adoção", this.getMsg() );
+
+        if(!retornoMsg.isEmpty()){
+          contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, retornoMsg, ""));
+        }       
+          
+      }else{
+          contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário informar um conteúdo para a mensagem.", ""));
+      }
     }
-/*
-    public String validaSessao(){
-        return user.verificaLogado();
+
+    public void verificaLogado(){
+        
+        if (user.getClienteLogado()){
+            escondeEntrar();
+        }else{
+            exibeEntrar();
+        }
     }
     
-    public String logout(){
-        return user.logout();
-    }*/
+//    public void logout(){
+//        user.logout();
+//    }
     
     public void logout(){
         user.logout();
         cliente = null;
+        user = null;
     }
 
     public String controlaTelaLogin() throws IOException{
@@ -294,6 +356,17 @@ public class ClienteController implements Serializable{
         user.controlaTelaLogin();
         return "";
     }
+
     
+
+    
+    public void exibeEntrar(){
+        setIsExibeEntrar(Boolean.TRUE);
+    }
+    
+    public void escondeEntrar()
+    {
+        setIsExibeEntrar(Boolean.FALSE);
+    }
 }
 

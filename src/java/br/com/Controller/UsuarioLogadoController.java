@@ -6,12 +6,12 @@ package br.com.Controller;
  */
 
   
-import br.com.Bean.ClienteBean;
-import br.com.DAO.ClienteDAO;
+import br.com.Bean.UsuarioBean;
+import br.com.DAO.UsuarioDAO;
 import java.io.IOException;  
 import java.io.Serializable;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.Logger; 
 import javax.annotation.PostConstruct;  
 import javax.faces.application.FacesMessage;  
 import javax.faces.bean.ManagedBean;  
@@ -24,9 +24,11 @@ import javax.faces.context.FacesContext;
 */  
 @ManagedBean  
 @SessionScoped  
+
+/*  CLASSE QUE CONTROLA O ADMINISTRADOR LOGADO */
 public class UsuarioLogadoController implements Serializable  {
     
-    private ClienteBean user;
+    private UsuarioBean user;
     private Boolean usuarioLogado = Boolean.FALSE;  
       
     private static UsuarioLogadoController instance;  
@@ -34,7 +36,7 @@ public class UsuarioLogadoController implements Serializable  {
     @PostConstruct   
     public void inicializa()  
     {  
-        user = new ClienteBean(); 
+        user = new UsuarioBean(); 
         usuarioLogado = Boolean.FALSE;  
         instance = this;  
     }  
@@ -53,7 +55,7 @@ public class UsuarioLogadoController implements Serializable  {
         user = null;  
         try {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./login.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("./loginAdmin.jsf");
             
         } catch (IOException ex) {
             Logger.getLogger(UsuarioLogadoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,17 +74,17 @@ public class UsuarioLogadoController implements Serializable  {
     public void fazerLogin(String usuario, String senha)  
     {  
         String errLogin = null;
-        ClienteDAO clienteDAO = new ClienteDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         try {  
 
-            errLogin = clienteDAO.logar(usuario, senha);
-            setUser(ClienteBean.getInstancia());
-            System.out.println(errLogin);
+            errLogin = usuarioDAO.logar(usuario, senha);
+            setUser(user);
+            
             if (errLogin.isEmpty())   
             {  
                 setUsuarioLogado(Boolean.TRUE);  
-                FacesContext.getCurrentInstance().getExternalContext().redirect("./meusAnimais.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("./administracao.jsf");
             }  
             else  
             {  
@@ -102,7 +104,9 @@ public class UsuarioLogadoController implements Serializable  {
     public String controlaTelaLogin() throws IOException{
         if(usuarioLogado)  
         {  
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./login.jsf");
+            FacesContext.getCurrentInstance().addMessage(null,   
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Você já está conectado ao sistema."));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("./administracao.jsf");
         }  
         return "";  
         
@@ -118,11 +122,11 @@ public class UsuarioLogadoController implements Serializable  {
         return "";  
     }  
       
-    public ClienteBean getUser() {  
+    public UsuarioBean getUser() {  
         return user;  
     }  
   
-    public void setUser(ClienteBean user) {  
+    public void setUser(UsuarioBean user) {  
         this.user = user;  
     }  
       
