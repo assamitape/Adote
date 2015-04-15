@@ -5,20 +5,21 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Login</title>
+        <title>Login</title> 
+        <link rel="stylesheet" type="text/css" href="css/estiloLogin.css" />
     </h:head>
     <h:body>
         <p:layout fullPage="true" >
-            <p:layoutUnit position="north" size="100" style="border-width: 0px"></p:layoutUnit>
+            <p:layoutUnit position="center" size="100" style="border-width: 0px"></p:layoutUnit>
             <h:form>
-            <p:layoutUnit  position="center" size="600" style="border-width: 0px ;max-width:300px ;padding-left: 38%">
+            <p:dialog  header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
                 
                     <h:outputText value="#{clienteLogadoController.controlaTelaLogin()}"/> 
-                    <p:growl id="growlLogin"  sticky="true" />
+                    <!--<p:growl id="growlLogin"  sticky="true" />-->
                     <p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />
                     
                     <center>
-                        <h2>Bem Vindo </h2> <br/> <br/>
+                        
                         <h:panelGrid columns="2" id="gridclientes">
                             <p:outputLabel value="Email "/>
                             <p:inputText id="login" value="#{clienteLogadoController.user.email}" requiredMessage="O login deve ser informado"/>
@@ -28,12 +29,13 @@
                         <br/>
                         </h:panelGrid>
                         
-                        <p:commandButton value="Entrar" update="growlLogin" actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
+                        <p:commandButton value="Entrar"  actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
                            <br/> <br/>
                         <p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />
                     </center>
-            </p:layoutUnit>             
+            </p:dialog>             
             
+                    <!-- tela de redefinir senha-->
                     <p:dialog id="dialog" header="Atualizar Senha" widgetVar="Dialog" rendered="#{not empty animalController.animal}" 
                               modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
                         <p:outputPanel style="width: 400px">

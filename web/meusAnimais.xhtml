@@ -18,6 +18,7 @@
                         
                         <p:panel visible="false">
                             <h:outputText value="#{clienteLogadoController.verificaLogado()}" />
+                            <h:outputText value="#{clienteController.escondeEntrar()}" />
                         </p:panel>
                     <h:form id="frm"> 
                         <p:tooltip/>
@@ -31,35 +32,36 @@
                             <p:outputLabel value="#{lista.id}"/>
                         </p:column>-->
 
-                        <p:column headerText="NOME">
-                            <p:outputLabel value="#{lista.descricao}"/>
+                        <p:column headerText="Nome">
+                            <center> <p:outputLabel value="#{lista.descricao}"/> </center>
                         </p:column>
 
-                        <p:column headerText="IDADE">
-                            <p:outputLabel value="#{lista.getIdadeExtenso()}">
-                            </p:outputLabel>
+                        <p:column headerText="Idade">
+                            <center> <p:outputLabel value="#{lista.getIdadeExtenso()}"/> </center>
+                            
                         </p:column>
 
-                        <p:column headerText="SEXO">
-                            <p:outputLabel value="#{lista.getSexoExtenso()}">
-                            </p:outputLabel>
+                        <p:column headerText="Sexo">
+                            <center> <p:outputLabel value="#{lista.getSexoExtenso()}"/> </center>
+                            
                         </p:column>
 
-                        <p:column headerText="HISTORICO">
+<!--                        <p:column headerText="Histórico">
                             <p:outputLabel value="#{lista.historico}"/>
+                        </p:column>-->
+
+                        <p:column headerText="Status" >
+                            <center> <p:outputLabel value="#{lista.getStausExtenso()}"/> </center>
                         </p:column>
 
-                        <p:column headerText="STATUS">
-                            <p:outputLabel value="#{lista.getStausExtenso()}"/>
+                        <p:column headerText="Vacinado">
+                            <center> <p:outputLabel value="#{lista.getCampoSn(lista.vacinado)}"/> </center>
                         </p:column>
 
-                        <p:column headerText="vacinado">
-                            <p:outputLabel value="#{lista.getCampoSn(lista.vacinado)}"/>
+                        <p:column headerText="Vermifugado">
+                            <center> <p:outputLabel value="#{lista.getCampoSn(lista.vermifugado)}"/> </center>
                         </p:column>
 
-                        <p:column headerText="vermifugado">
-                            <p:outputLabel value="#{lista.getCampoSn(lista.vermifugado)}"/>
-                        </p:column>
 
 <!--                        <p:column headerText="Dono">
                             <p:outputLabel value="#{lista.idCliente}"/>

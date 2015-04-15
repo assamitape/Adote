@@ -8,9 +8,12 @@
         <title>Adote um vira-lata</title>
         <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
         <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
-        <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
         <link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/site_global2.css"/>
+        <link rel="stylesheet" type="text/css" href="css/master_a-mestre2.css?" />
+        <link rel="stylesheet" type="text/css" href="css/index2.css" />
         
     </h:head>
     <h:body>
@@ -18,66 +21,75 @@
             <p:layoutUnit  position="west" size="190"  style="min-height: max-content; border-width: 0px">
                 <!--<center>-->
                 <!--<p:graphicImage url="/imagens/crio_adote_marca_vertical.png"/>-->
-                
-                <!--  <div class="clearfix" id="page"> column -->
-                   <!--<div class="position_content" id="page_position_content">-->
-                    <!--<div class="clearfix colelem" id="pu132"> group -->
-                     <div id="u132"><!-- simple frame --></div>
-                     <div class="clip_frame" id="u156"><!-- image -->
-                      <img class="block" id="u156_img" src="imagens/crio_adote_marca_vertical.png" alt="" width="171" height="259"/>
-                     </div>
-                    <!--</div>-->    
-                   <!--</div>-->
-                      <!--</div>-->
-                
-                
-                <div class="clearfix colelem" id="pu141">  
-                 <div class="position_content" id="pu141_position_content">
-                  <div class="pinned-colelem" id="u141"> </div>
-               
-                  <h:outputLink id="u277-4"  value="./animaisdisponiveis.jsf" styleClass="nonblock nontext clearfix pinned-colelem" >
-                    ADOTE!
-                  </h:outputLink>    
-                  
-                  <h:outputLink id="u273-4" value="http://blog.adoteumvira-lata.com/#programa" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                   O PROGRAMA
-                  </h:outputLink>    
-                  
-                  <h:outputLink id="u185-4" value="http://blog.adoteumvira-lata.com/#atividades" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                    ATIVIDADES
-                  </h:outputLink>   
-                  
-                  <h:outputLink id="u269-4" value="http://blog.adoteumvira-lata.com/#nova_marca" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                    NOVA MARCA
-                  </h:outputLink>    
-                  
-                  <h:outputLink id="u270-4" value="http://blog.adoteumvira-lata.com/#contato" styleClass="nonblock nontext anim_swing clearfix pinned-colelem">
-                    CONTATO
-                  </h:outputLink>  
+ 
+                <div class="clip_frame" id="u156"><!-- image -->
+                  <img class="block" id="u156_img" src="imagens/crio_adote_marca_vertical.png" alt="" width="171" height="259"/>
+                </div>
+
+
+                 <div class="clearfix colelem" id="pu2292"><!-- column -->
+                 <div class="position_content" id="pu2292_position_content">
+                  <div class="pinned-colelem" id="u2292"><!-- simple frame --></div>
+                  <div class="clearfix pinned-colelem" id="u2289-4"><!-- content -->
+                   <p>INÍCIO</p>
+                  </div>
+                  <div class="pinned-colelem" id="u2285"><!-- simple frame --></div>
+                  <a class="nonblock nontext MuseLinkActive clearfix pinned-colelem" id="u2290-4" href="index.html"><!-- content --><p>ADOTE!</p></a>
+                  <div class="clearfix pinned-colelem" id="u2398-4"><!-- content -->
+                   <p>INSTITUCIONAL</p>
+                  </div>
                  </div>
-                </div>                
+                </div>
+                <div class="clearfix pinned-colelem" id="u2288-4"><!-- content -->
+                 <p>O PROGRAMA</p>
+                </div>
+
+                <div class="clearfix colelem" id="pu2286-4"><!-- column -->
+                 <div class="position_content" id="pu2286-4_position_content">
+                  <div class="clearfix pinned-colelem" id="u2286-4"><!-- content -->
+                   <p>ATIVIDADES</p>
+                  </div>
+                  <div class="clearfix pinned-colelem" id="u2287-4"><!-- content -->
+                   <p>NOVA MARCA</p>
+                  </div>
+                  <div class="clearfix pinned-colelem" id="u2291-4"><!-- content -->
+                   <p>CONTATO</p>
+                  </div>
+                 </div>
+                </div>
+                
             </p:layoutUnit>
+            
             
             <p:layoutUnit position="center" style="height: 100%; border-width: 0px">
                 <h:form id="formPrincipal" enctype="multipart/form-data">
-                    <center>
+<!--                    <center>
                         <p:graphicImage url="/imagens/crio_adote_marca_sombra002.png" />
-                    </center>
-                   <!--style="padding-left: 30%"-->
-                    <p:menubar>
-                        <p:menuitem style="left: 50%"  value="ENTRAR" url="./login.jsf"/>
-                        <p:menuitem rendered="#{!clienteLogadoController.clienteLogado}"  value="CADASTRAR" url="./cadclientes.jsf"/>
-                        <p:submenu  rendered="#{clienteLogadoController.clienteLogado}" label="MEU CADASTRO">
-                            <p:menuitem value="ATUALIZAR CADASTRO" actionListener="#{clienteController.escondeBtnSalvar()}" />
-                            <p:menuitem value="MEUS ANIMAIS" url="./meusAnimais.jsf"/>
-                        </p:submenu>  
-                        <p:menuitem rendered="#{clienteLogadoController.clienteLogado}" value="CADASTRO DE ANIMAIS" url="./cadanimais.jsf"  actionListener="#{animalController.novoAnimal()}"/>
-                        <p:menuitem value="PARA ADOÇÃO" url="./animaisdisponiveis.jsf" />
-                        <p:menuitem value="ADMINISTRAÇÃO" url="./administracao.jsf"/>
-                        <p:menuitem value="SAIR" actionListener="#{clienteController.logout()}" />
-                        
-                    </p:menubar> 
-<br/>
+                    </center>-->
+ 
+
+                <div class="browser_width colelem" id="u3653-bw">
+                 <div id="u3653"><!-- group -->
+                  <div class="clearfix" id="u3653_align_to_page">
+                   <div class="clearfix grpelem" id="u3654-4" data-muse-uid="U3654"><!-- content -->
+                    <!-- m_editable region-id="editable-static-tag-U3654" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
+                    <p>LOGIN</p>
+            <!-- /m_editable -->
+                   </div>
+                   <div class="clearfix grpelem" id="u3655-4" data-muse-uid="U3655"><!-- content -->
+                    <!-- m_editable region-id="editable-static-tag-U3655" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
+                    <p>NOVO USUÁRIO</p>
+            <!-- /m_editable -->
+                   </div>
+                   <div class="clearfix grpelem" id="u3656-4" data-muse-uid="U3656"><!-- content -->
+                    <!-- m_editable region-id="editable-static-tag-U3656" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
+                    <p>ADMINISTRAÇÃO</p>
+            <!-- /m_editable -->
+                   </div>
+                  </div>
+                 </div>
+                </div> 
+
                     <ui:insert name="conteudo">
                     </ui:insert>
                 </h:form>    

@@ -30,11 +30,12 @@ public class ClienteController implements Serializable{
     private ClienteBean cliente = ClienteBean.getInstancia();
     private DataModel listaCliente;
     private DataModel listaAnimalCliente;
-    private boolean exibeBtnSalvar;
-    private boolean exibeBtnAlterar;    
+    private boolean exibeBtnSalvar = Boolean.TRUE;
+    private boolean exibeBtnAlterar = Boolean.FALSE;    
  //   private boolean exibe
     private boolean isValidaForm;
     private boolean isExibeEntrar;
+    private boolean exibeSair;
     
     /* campos de envio de email*/
     private String msg;
@@ -47,6 +48,14 @@ public class ClienteController implements Serializable{
         exibeEntrar();
     }
 
+    public boolean isExibeSair() {
+        return exibeSair;
+    }
+
+    public void setExibeSair(boolean exibeSair) {
+        this.exibeSair = exibeSair;
+    }    
+    
     public boolean isIsExibeEntrar() {
         return isExibeEntrar;
     }
@@ -348,7 +357,7 @@ public class ClienteController implements Serializable{
     public void logout(){
         user.logout();
         cliente = null;
-        user = null;
+        //user = null;
     }
 
     public String controlaTelaLogin() throws IOException{
@@ -356,17 +365,18 @@ public class ClienteController implements Serializable{
         user.controlaTelaLogin();
         return "";
     }
-
-    
-
     
     public void exibeEntrar(){
         setIsExibeEntrar(Boolean.TRUE);
+        setExibeSair(Boolean.FALSE);
     }
     
     public void escondeEntrar()
     {
         setIsExibeEntrar(Boolean.FALSE);
+        setExibeSair(Boolean.TRUE);
     }
+    
+
 }
 

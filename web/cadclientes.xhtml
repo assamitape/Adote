@@ -73,10 +73,10 @@
                         <p:message for="bairro"/>
 
                     </h:panelGrid>
-                    <p:panelGrid columns="1">
+                    
                         <p:commandButton value="Salvar" rendered="#{clienteController.isExibeBtnSalvar()}" update="messages" actionListener="#{clienteController.salvaCliente()}"/>
                         <p:commandButton value="Alterar" rendered="#{clienteController.isExibeBtnAlterar()}" update="messages" action="#{clienteController.alteraCliente()}"/>
-                    </p:panelGrid>
+                    
 
                 </h:form>
           </center>
