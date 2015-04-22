@@ -7,32 +7,33 @@
     <h:head>
         <title>Login</title>
     </h:head>
-    <h:body>
-        <p:layout fullPage="true" >
-            <p:layoutUnit position="north" size="100" style="border-width: 0px"></p:layoutUnit>
-            <h:form>
-            <p:layoutUnit  position="center" size="600" style="border-width: 0px ;max-width:300px ;padding-left: 38%">
-                
+    
+    <h:body style="background-image:url('#{request.contextPath}/imagens/fundo_login.jpg')">
+        <!--<p:layout fullPage="true" >-->
+          
+            <p:layoutUnit  position="center" >
+                <h:form>
                     <h:outputText value="#{clienteLogadoController.controlaTelaLogin()}"/> 
                     <p:growl id="growlLogin"  sticky="true" />
                     <p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />
                     
-                    <center>
-                        <h2>Bem Vindo </h2> <br/> <br/>
-                        <h:panelGrid columns="2" id="gridclientes">
-                            <p:outputLabel value="Email "/>
-                            <p:inputText id="login" value="#{clienteLogadoController.user.email}" requiredMessage="O login deve ser informado"/>
+                    <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
+                        <center>
+                            <h:panelGrid columns="2" id="gridclientes">
+                                <p:outputLabel value="Email "/>
+                                <p:inputText id="login" value="#{clienteLogadoController.user.email}" requiredMessage="O login deve ser informado"/>
 
-                            <p:outputLabel value="Senha "/>
-                            <p:password id="senha" value="#{clienteLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
-                        <br/>
-                        </h:panelGrid>
+                                <p:outputLabel value="Senha "/>
+                                <p:password id="senha" value="#{clienteLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
+                            <br/>
+                            </h:panelGrid>
+
+                            <p:commandButton value="Entrar" update="growlLogin" actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
+                               <br/> <br/>
+                            <p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />
+                        </center>                        
+                    </p:dialog>
                         
-                        <p:commandButton value="Entrar" update="growlLogin" actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
-                           <br/> <br/>
-                        <p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />
-                    </center>
-            </p:layoutUnit>             
             
                     <p:dialog id="dialog" header="Atualizar Senha" widgetVar="Dialog" rendered="#{not empty animalController.animal}" 
                               modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
@@ -49,7 +50,9 @@
                         </p:outputPanel>       
                     
                     </p:dialog>
-            </h:form>
+         
+                </h:form>
+            </p:layoutUnit>
 <!--            <p:layoutUnit position="center" style="border-width: 0px ;max-width:15px;max-height:400px; ">
                 <h:form>
                 
@@ -57,7 +60,7 @@
                 </h:form>                           
             </p:layoutUnit>-->
             
-        </p:layout>
+        <!--</p:layout>-->
     </h:body>
 </html>
 

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +29,11 @@ private static final long serialVersionUID = 1L;
         
         try {
             
-            String sql = "INSERT INTO ANIMAL(DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, VERMIFUGADO, SEXO, FOTO_PRINCIPAL, FOTO1, FOTO2, FOTO3) VALUES"+
-                         "(?,?,?,?,?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO ANIMAL( "
+                       +     "DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, "
+                       +     "VERMIFUGADO, SEXO, FOTO_PRINCIPAL, FOTO1, FOTO2, FOTO3, DT_CADASTRO, "
+                       +     "DT_AUTORIZACAO) VALUES"+
+                         "(?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
        
             /*FileInputStream fis; 
             
@@ -53,7 +57,8 @@ private static final long serialVersionUID = 1L;
             stm.setBytes(10, animal.getFoto1());
             stm.setBytes(11, animal.getFoto2());
             stm.setBytes(12, animal.getFoto3());
-            
+            stm.setDate(13, new Date(System.currentTimeMillis()));  //obtendo o sysdate
+            stm.setDate(14, null);  //essa data só será preenchida na autorização 
             stm.execute();
             con.getConnection().commit();
             stm.close();
@@ -242,9 +247,11 @@ private static final long serialVersionUID = 1L;
     public boolean sinalizaAdotado(AnimalBean animal) throws SQLException{
         
         try{
-            String sql = "UPDATE ANIMAL SET STATUS = 'A'"+
+            String sql = "UPDATE ANIMAL "
+                         + " SET STATUS = 'A', "
+                         + " DT_AUTORIZACAO = " +new Date(System.currentTimeMillis())+
                          "WHERE ID = ?";
-
+            
             PreparedStatement stm = con.getConnection().prepareStatement(sql);
             
             stm.setInt(1, animal.getId());

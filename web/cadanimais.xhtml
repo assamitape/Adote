@@ -5,128 +5,128 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<!--  <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>-->
+    <!--  <h:head>
+            <title>Facelet Title</title>
+        </h:head>
+        <h:body>-->
     <ui:decorate template="padrao.xhtml">
         <ui:define name="conteudo">
             <center>
 
                 <p:outputLabel value="#{animalController.carregaFotos()}"/>
 
-            <h:form enctype="multipart/form-data">
-                <h:outputText value="#{clienteController.verificaLogado()}"/>
-                <h:panelGrid columns="3" id="gridanimais">
+                <h:form enctype="multipart/form-data">
+                    <h:outputText value="#{clienteController.verificaLogado()}"/>
+                    <h:panelGrid columns="3" id="gridanimais">
+
+                        <p:outputLabel value="Nome: "/>
+                        <p:inputText id="nome" value="#{animalController.animal.descricao}" required="true" requiredMessage="O campo nome deve ser preenchido"/>
+                        <p:message for="nome"/>
+
+                        <p:outputLabel value="Idade: " />
+                        <p:selectOneMenu id="idade" value="#{ animalController.animal.idade}" required="true">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="De 0 mês a 3 meses" itemValue="1"/>
+                            <f:selectItem itemLabel="De 4 meses a 7 meses" itemValue="2"/>
+                            <f:selectItem itemLabel="De 8 meses a 1 ano" itemValue="3"/>
+                            <f:selectItem itemLabel="De 2 anos a 4 anos" itemValue="4"/>
+                            <f:selectItem itemLabel="Acima de 4 anos" itemValue="5"/>
+                        </p:selectOneMenu>
+                        <p:message for="idade"/>
+
+                        <p:outputLabel value="Sexo: " />
+                        <p:selectOneMenu id="sexo" value="#{ animalController.animal.sexo}" required="true">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Macho" itemValue="M"/>
+                            <f:selectItem itemLabel="Fêmea" itemValue="F"/>
+                        </p:selectOneMenu>
+                        <p:message for="sexo"/>
+
+                        <p:outputLabel value="Histórico: "/>
+                        <p:inputTextarea id="historico" label="Máximo de 2000 caracteres" value="#{animalController.animal.historico}" />
+                        <p:message for="historico"/>                        
+
+                        <p:outputLabel value="Vacinado: "/>
+                        <p:selectOneMenu id="vacinado" value="#{ animalController.animal.vacinado}" required="true">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Sim" itemValue="S"/>
+                            <f:selectItem itemLabel="Não" itemValue="N"/>
+                        </p:selectOneMenu>
+                        <p:message for="vacinado"/>
+
+                        <p:outputLabel value="Vermifugado: "/>
+                        <p:selectOneMenu id="vermifugado" value="#{ animalController.animal.vermifugado}" required="true">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Sim" itemValue="S"/>
+                            <f:selectItem itemLabel="Não" itemValue="N"/>
+                        </p:selectOneMenu>
+                        <!--                    <p:message for="vermifugado"/>
                         
-                    <p:outputLabel value="Nome: "/>
-                    <p:inputText id="nome" value="#{animalController.animal.descricao}" required="true" requiredMessage="O campo nome deve ser preenchido"/>
-                    <p:message for="nome"/>
-
-                    <p:outputLabel value="Idade: " />
-                    <p:selectOneMenu id="idade" value="#{ animalController.animal.idade}" required="true">
-                        <f:selectItem itemLabel="Selecione" itemValue=""/>
-                        <f:selectItem itemLabel="De 0 mês a 3 meses" itemValue="1"/>
-                        <f:selectItem itemLabel="De 4 meses a 7 meses" itemValue="2"/>
-                        <f:selectItem itemLabel="De 8 meses a 1 ano" itemValue="3"/>
-                        <f:selectItem itemLabel="De 2 anos a 4 anos" itemValue="4"/>
-                        <f:selectItem itemLabel="Acima de 4 anos" itemValue="5"/>
-                    </p:selectOneMenu>
-                    <p:message for="idade"/>
-
-                    <p:outputLabel value="Sexo: " />
-                    <p:selectOneMenu id="sexo" value="#{ animalController.animal.sexo}" required="true">
-                        <f:selectItem itemLabel="Selecione" itemValue=""/>
-                        <f:selectItem itemLabel="Macho" itemValue="M"/>
-                        <f:selectItem itemLabel="Fêmea" itemValue="F"/>
-                    </p:selectOneMenu>
-                    <p:message for="sexo"/>
-                    
-                    <p:outputLabel value="Histórico: "/>
-                    <p:inputTextarea id="historico" label="Máximo de 2000 caracteres" value="#{animalController.animal.historico}" />
-                    <p:message for="historico"/>                        
-
-                    <p:outputLabel value="Vacinado: "/>
-                    <p:selectOneMenu id="vacinado" value="#{ animalController.animal.vacinado}" required="true">
-                        <f:selectItem itemLabel="Selecione" itemValue=""/>
-                        <f:selectItem itemLabel="Sim" itemValue="S"/>
-                        <f:selectItem itemLabel="Não" itemValue="N"/>
-                    </p:selectOneMenu>
-                    <p:message for="vacinado"/>
-
-                    <p:outputLabel value="Vermifugado: "/>
-                    <p:selectOneMenu id="vermifugado" value="#{ animalController.animal.vermifugado}" required="true">
-                        <f:selectItem itemLabel="Selecione" itemValue=""/>
-                        <f:selectItem itemLabel="Sim" itemValue="S"/>
-                        <f:selectItem itemLabel="Não" itemValue="N"/>
-                    </p:selectOneMenu>
-<!--                    <p:message for="vermifugado"/>
-
-
-                    <p:fileUpload value="#{animalController.file}"  
-                    label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                    invalidSizeMessage="Imagem muito grande" auto="true"
-                    invalidFileMessage="Tipo de imagem não suportado" mode="simple"
-                    allowTypes="/(\.|\/)(jpe?g|png)$/" />     -->
-                 
-                    
-                    <!--<h:graphicImage name="#{animalController.animal.fotoPrincipal}" id="nature1" style="height: 77px; width: 100px" />-->
-                </h:panelGrid>
-                
-                <h:panelGrid columns="1" width="350">
-                    <h:form id="formImagens">
                         
-                        <p:fileUpload fileUploadListener="#{animalController.uploadFotoPrincipal}" 
-                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
-                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
-                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="imagemTmp" />
+                                            <p:fileUpload value="#{animalController.file}"  
+                                            label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                            invalidSizeMessage="Imagem muito grande" auto="true"
+                                            invalidFileMessage="Tipo de imagem não suportado" mode="simple"
+                                            allowTypes="/(\.|\/)(jpe?g|png)$/" />     -->
 
-                        <p:graphicImage cache="false" id="imagemTmp" value="#{galeriaBean.imagem}" height="300" style="margin: 0 auto;"/>
 
-                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto1}" 
-                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
-                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
-                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+<!--<h:graphicImage name="#{animalController.animal.fotoPrincipal}" id="nature1" style="height: 77px; width: 100px" />-->
+                    </h:panelGrid>
 
-                        <p:graphicImage rendered="#{animalController.exibeFoto1}" url="/temp/#{animalController.animal.id}_1.jpg" width="150" height="150">
-                            <f:param name="image_id" value="#{lista.idimagem}"/>
-                        </p:graphicImage>
+                    <h:panelGrid columns="1" width="350">
+                        <h:form id="formImagens">
 
-                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto2}" 
-                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
-                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
-                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+                            <p:fileUpload fileUploadListener="#{animalController.uploadFotoPrincipal}" 
+                                          label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                          invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                          invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                          multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="imagemTmp" />
 
-                        <p:graphicImage rendered="#{animalController.exibeFoto2}" url="/temp/#{animalController.animal.id}_2.jpg" width="150" height="150">
-                            <f:param name="image_id" value="#{lista.idimagem}"/>
-                        </p:graphicImage>
+                            <p:graphicImage cache="false" id="imagemTmp" value="#{galeriaBean.imagem}" height="300" style="margin: 0 auto;"/>
 
-                        <p:fileUpload fileUploadListener="#{animalController.uploadFoto3}" 
-                                      label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
-                                      invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
-                                      invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
-                                      multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
+                            <p:fileUpload fileUploadListener="#{animalController.uploadFoto1}" 
+                                          label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                          invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                          invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                          multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
 
-                        <p:graphicImage rendered="#{animalController.exibeFoto3}" url="/temp/#{animalController.animal.id}_3.jpg" width="150" height="150">
-                            <f:param name="image_id" value="#{lista.idimagem}"/>
-                        </p:graphicImage>
-                    </h:form>
+                            <p:graphicImage rendered="#{animalController.exibeFoto1}" url="/temp/#{animalController.animal.id}_1.jpg" width="150" height="150">
+                                <f:param name="image_id" value="#{lista.idimagem}"/>
+                            </p:graphicImage>
 
-                </h:panelGrid>    
-<br/><br/>
-                <p:commandButton value="Salvar" rendered="#{animalController.isExibeBtnSalvar()}" update="gridanimais" action="#{animalController.salvaAnimal(clienteLogadoController.user.id)}"/>
+                            <p:fileUpload fileUploadListener="#{animalController.uploadFoto2}" 
+                                          label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                          invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                          invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                          multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
 
-                <p:commandButton value="Alterar" rendered="#{clienteLogadoController.clienteLogado}" update="gridanimais" action="#{animalController.alteraAnimal()}"/>
+                            <p:graphicImage rendered="#{animalController.exibeFoto2}" url="/temp/#{animalController.animal.id}_2.jpg" width="150" height="150">
+                                <f:param name="image_id" value="#{lista.idimagem}"/>
+                            </p:graphicImage>
 
-                <!--<p:commandButton value="Limpar" type="reset" update="gridanimais"/>-->
+                            <p:fileUpload fileUploadListener="#{animalController.uploadFoto3}" 
+                                          label="Escolher" cancelLabel="Cancelar" sizeLimit="400000"
+                                          invalidSizeMessage="Imagem muito grande" uploadLabel="Confirmar Foto"
+                                          invalidFileMessage="Tipo de imagem não suportado" fileLimit="1" 
+                                          multiple="false" allowTypes="/(\.|\/)(jpe?g)$/" update="formImagens" />
 
-            </h:form>
-</center>
+                            <p:graphicImage rendered="#{animalController.exibeFoto3}" url="/temp/#{animalController.animal.id}_3.jpg" width="150" height="150">
+                                <f:param name="image_id" value="#{lista.idimagem}"/>
+                            </p:graphicImage>
+                        </h:form>
 
-                <!--</h:body>--> 
+                    </h:panelGrid>    
+                    <br/><br/>
+                    <p:commandButton value="Salvar" rendered="#{animalController.isExibeBtnSalvar()}" update="gridanimais" action="#{animalController.salvaAnimal(clienteLogadoController.user.id)}"/>
+
+                    <p:commandButton value="Alterar" rendered="#{clienteLogadoController.clienteLogado}" update="gridanimais" action="#{animalController.alteraAnimal()}"/>
+
+                    <!--<p:commandButton value="Limpar" type="reset" update="gridanimais"/>-->
+
+                </h:form>
+            </center>
+
+            <!--</h:body>--> 
         </ui:define>
     </ui:decorate>
 </html>

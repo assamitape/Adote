@@ -1,5 +1,4 @@
 package br.com.Bean;
-import java.io.FileInputStream;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -24,6 +23,26 @@ public class AnimalBean implements Serializable{
     private String cliBairro;
     private String cliCidade;
     private String cliEstado;
+    
+    
+    private Date dtCadastro;
+    private Date dtAutorizacao;
+
+    public Date getDtCadastro() {
+        return dtCadastro;
+    }
+
+    public void setDtCadastro(Date dtCadastro) {
+        this.dtCadastro = dtCadastro;
+    }
+
+    public Date getDtAutorizacao() {
+        return dtAutorizacao;
+    }
+
+    public void setDtAutorizacao(Date dtAutorizacao) {
+        this.dtAutorizacao = dtAutorizacao;
+    }
 
     public AnimalBean() {
     }

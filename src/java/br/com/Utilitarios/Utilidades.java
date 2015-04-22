@@ -39,4 +39,7 @@ public class Utilidades {
         return "Um email foi enviado ao "+nomeDestinatario;
     }
     
+    public DefaultStreamedContent getImageFromByte(byte[] image) {
+        return new DefaultStreamedContent(new ByteArrayInputStream(image));
+    }
 }

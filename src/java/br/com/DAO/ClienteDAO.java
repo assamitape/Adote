@@ -150,7 +150,11 @@ public class ClienteDAO implements Serializable {
         
         try {
             
-        String sql = "SELECT ID, DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, VACINADO, VERMIFUGADO, SEXO FROM ANIMAL WHERE id_cliente = ? ";
+        String sql = "SELECT ID, DESCRICAO, IDADE, HISTORICO, STATUS, ID_CLIENTE, "
+                + "          VACINADO, VERMIFUGADO, SEXO "
+                + "     FROM ANIMAL "
+                + "    WHERE id_cliente = ? "
+                + "    ORDER BY DT_AUTORIZACAO DESC";
         stm = con.getConnection().prepareStatement(sql);
         stm.setInt(1, cliente.getId());
         ResultSet rs = stm.executeQuery();
