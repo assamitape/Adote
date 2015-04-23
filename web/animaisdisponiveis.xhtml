@@ -28,7 +28,9 @@
                                            oncomplete="PF('detDialog').show()" onclick="#{animalController.iniciaFotos(lista.id)}" actionListener="#{clienteController.retornaCliente(lista.idCliente)}" title="Detalhes" >
                                 <h:panelGrid  columns="2"  >
 
-                                    <p:graphicImage value="#{animalController.animal.fotoPrincipal2}"></p:graphicImage>
+                                    <p:graphicImage  style="padding-right: 10%" url="/temp/#{lista.id}_princ.jpg" width="130" height="130">
+                                        <f:param name="image_id" value="#{lista.idimagem}"/>
+                                    </p:graphicImage>
 
                                     <h:panelGrid  columns="1" width="130"  >
                                         <h:outputText styleClass="semTraco" value="#{lista.descricao}" style="alignment-adjust: central"/>
@@ -56,6 +58,10 @@
 
                         <!--<p:panelGrid columns="1" style="width: 480px; border-width: 0px; border-style: none">-->        
                         <p:lightBox  >
+
+<!--                            <p:graphicImage value="#{animalController.animal.foto1}">
+                                <f:param name="id" value="#{someBean.imageId}" />
+                            </p:graphicImage>-->
 
                             <h:outputLink value="./temp/#{animalController.animal.id}_princ.jpg" >
                                 <p:graphicImage style="padding-left: 3% " rendered="#{animalController.exibeFotoPrincipal}" url="/temp/#{animalController.animal.id}_princ.jpg"  cache="false" width="100" height="100"/>

@@ -3,31 +3,32 @@ package br.com.Controller;
 import br.com.Bean.AnimalBean;
 import br.com.DAO.AnimalDAO;
 import br.com.Utilitarios.Utilidades;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "animalController")
@@ -91,10 +92,6 @@ public class AnimalController implements Serializable {
 
     }
 
-    public DefaultStreamedContent converte(byte[] image) {
-        return new Utilidades().getImageFromByte(image);
-    }
-    
     public List<String> getImages() {
         return images;
     }
@@ -400,14 +397,11 @@ public class AnimalController implements Serializable {
 
             for (AnimalBean a : animalDAO.listarAnimalParaDoacao()) {
 
-                InputStream in = new ByteArrayInputStream(a.getFoto1());
-                BufferedImage bImageFromConvert = ImageIO.read(in);
-
                 String nomeArquivo = a.getId() + ".jpg";
                 String arquivo = sContext.getRealPath("/temp") + File.separator
                         + nomeArquivo;
 
-              //  criaArquivo(a.getFotoPrincipal(), arquivo);
+                criaArquivo(a.getFotoPrincipal(), arquivo);
             }
 //            }
         } catch (Exception ex) {
@@ -435,52 +429,51 @@ public class AnimalController implements Serializable {
 
             for (AnimalBean a : animalDAO.listarAnimalParaDoacao()) {
 
-                 setAnimal(a);
-//                if (!Arrays.toString(a.getFotoPrincipal()).isEmpty() && !Arrays.toString(a.getFotoPrincipal()).equals("null")) {
-//
-//                    String nomeArquivoFotoPrincipal = a.getId() + "_princ" + ".jpg";
-//                    String arquivoFotoPrincipal = sContext.getRealPath("/temp") + File.separator
-//                            + nomeArquivoFotoPrincipal;
-//
-//                    f = new File(arquivoFotoPrincipal);
-//
-//                    if (!f.exists()) {
-//                        criaArquivo(a.getFotoPrincipal(), arquivoFotoPrincipal);
-//                    }
-//                }
-//
-//                if (!Arrays.toString(a.getFoto1()).isEmpty() && !Arrays.toString(a.getFoto1()).equals("null")) {
-//                    String nomeArquivo = a.getId() + "_1" + ".jpg";
-//                    String arquivo = sContext.getRealPath("/temp") + File.separator
-//                            + nomeArquivo;
-//                    f = new File(arquivo);
-//
-//                    if (!f.exists()) {
-//                        criaArquivo(a.getFoto1(), arquivo);
-//                    }
-//                }
-//
-//                if (!Arrays.toString(a.getFoto2()).isEmpty() && !Arrays.toString(a.getFoto2()).equals("null")) {
-//                    String nomeArquivo = a.getId() + "_2" + ".jpg";
-//                    String arquivo = sContext.getRealPath("/temp") + File.separator
-//                            + nomeArquivo;
-//                    f = new File(arquivo);
-//
-//                    if (!f.exists()) {
-//                        criaArquivo(a.getFoto2(), arquivo);
-//                    }
-//                }
-//
-//                if (!Arrays.toString(a.getFoto3()).isEmpty() && !Arrays.toString(a.getFoto3()).equals("null")) {
-//                    String nomeArquivo = a.getId() + "_3" + ".jpg";
-//                    String arquivo = sContext.getRealPath("/temp") + File.separator
-//                            + nomeArquivo;
-//                    f = new File(arquivo);
-//
-//                    if (!f.exists()) {
-//                        criaArquivo(a.getFoto3(), arquivo);
-//                    }
-//                }
+                if (!Arrays.toString(a.getFotoPrincipal()).isEmpty() && !Arrays.toString(a.getFotoPrincipal()).equals("null")) {
+
+                    String nomeArquivoFotoPrincipal = a.getId() + "_princ" + ".jpg";
+                    String arquivoFotoPrincipal = sContext.getRealPath("/temp") + File.separator
+                            + nomeArquivoFotoPrincipal;
+
+                    f = new File(arquivoFotoPrincipal);
+
+                    if (!f.exists()) {
+                        criaArquivo(a.getFotoPrincipal(), arquivoFotoPrincipal);
+                    }
+                }
+
+                if (!Arrays.toString(a.getFoto1()).isEmpty() && !Arrays.toString(a.getFoto1()).equals("null")) {
+                    String nomeArquivo = a.getId() + "_1" + ".jpg";
+                    String arquivo = sContext.getRealPath("/temp") + File.separator
+                            + nomeArquivo;
+                    f = new File(arquivo);
+
+                    if (!f.exists()) {
+                        criaArquivo(a.getFoto1(), arquivo);
+                    }
+                }
+
+                if (!Arrays.toString(a.getFoto2()).isEmpty() && !Arrays.toString(a.getFoto2()).equals("null")) {
+                    String nomeArquivo = a.getId() + "_2" + ".jpg";
+                    String arquivo = sContext.getRealPath("/temp") + File.separator
+                            + nomeArquivo;
+                    f = new File(arquivo);
+
+                    if (!f.exists()) {
+                        criaArquivo(a.getFoto2(), arquivo);
+                    }
+                }
+
+                if (!Arrays.toString(a.getFoto3()).isEmpty() && !Arrays.toString(a.getFoto3()).equals("null")) {
+                    String nomeArquivo = a.getId() + "_3" + ".jpg";
+                    String arquivo = sContext.getRealPath("/temp") + File.separator
+                            + nomeArquivo;
+                    f = new File(arquivo);
+
+                    if (!f.exists()) {
+                        criaArquivo(a.getFoto3(), arquivo);
+                    }
+                }
             }
 //            }
         } catch (Exception ex) {
