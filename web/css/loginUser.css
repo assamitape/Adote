@@ -1,4 +1,0 @@
-.ui-layout-unit-content{
-    background-image:url('#{request.contextPath}/imagens/fundo_login.jpg');
-    background-color: #0000E6;
-}

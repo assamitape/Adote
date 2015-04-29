@@ -81,27 +81,27 @@ body
 	body { text-rendering:auto; }
 }
 
-/*a:link
+a:link
 {
-	color: #253440;
+	color: #0000FF;
 	text-decoration: underline;
-}*/
+}
 
 a:visited
 {
-	color: #41566D;
+	color: #800080;
 	text-decoration: underline;
 }
 
 a:hover
 {
-	color: #41566D;
+	color: #0000FF;
 	text-decoration: underline;
 }
 
 a:active
 {
-	color: #253440;
+	color: #EE0000;
 	text-decoration: underline;
 }
 
@@ -111,78 +111,6 @@ a.nontext /* used to override default properties of 'a' tag */
 	text-decoration: none;
 	font-style: normal;
 	font-weight: normal;
-}
-
-.Fundo-Escuro a:link
-{
-	color: #FFFFFF;
-	text-decoration: underline;
-}
-
-.Fundo-Escuro a:visited
-{
-	color: #FFD400;
-	text-decoration: underline;
-}
-
-.Fundo-Escuro a:hover
-{
-	color: #FFD400;
-	text-decoration: underline;
-}
-
-.Fundo-Escuro a:active
-{
-	color: #FFFFFF;
-	text-decoration: underline;
-}
-
-.Fundo-Claro a:link
-{
-	color: #253440;
-	text-decoration: underline;
-}
-
-.Fundo-Claro a:visited
-{
-	color: #FFD400;
-	text-decoration: underline;
-}
-
-.Fundo-Claro a:hover
-{
-	color: #FFD400;
-	text-decoration: underline;
-}
-
-a,.Fundo-Escuro a,.Fundo-Claro a,.Cel a
-{
-	color: inherit;
-	text-decoration: inherit;
-}
-
-.Fundo-Claro a:active,.Cel a:link
-{
-	color: #253440;
-	text-decoration: underline;
-}
-
-.Cel a:visited
-{
-	color: #41566D;
-	text-decoration: underline;
-}
-
-.Cel a:hover
-{
-	color: #41566D;
-	text-decoration: underline;
-}
-
-.Cel a:active
-{
-	color: #253440;
-	text-decoration: underline;
 }
 
 .normal_text
@@ -198,7 +126,6 @@ a,.Fundo-Escuro a,.Fundo-Claro a,.Cel a
 	text-align: left;
 	text-decoration: none;
 	text-indent: 0px;
-	text-transform: none;
 	vertical-align: 0px;
 	padding: 0px;
 }
@@ -596,24 +523,5 @@ textarea
 .pointer_cursor,.fld-recaptcha-mode,.fld-recaptcha-refresh,.fld-recaptcha-help
 {
 	cursor: pointer;
-}
-
-p,h1,h2,h3,h4,h5,h6,ol,ul,span.actAsPara /* disable Android font boosting */
-{
-	max-height: 1000000px;
-}
-
-.superscript
-{
-	vertical-align: super;
-	font-size: 66%;
-	line-height: 0;
-}
-
-.subscript
-{
-	vertical-align: sub;
-	font-size: 66%;
-	line-height: 0;
 }
 

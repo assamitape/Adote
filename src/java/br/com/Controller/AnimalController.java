@@ -497,8 +497,22 @@ public class AnimalController implements Serializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
     }
 
+    public String getPreviewImg(int id) {
+        File arq;
+        ServletContext sContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+
+        arq = new File(sContext.getRealPath("/temp") + File.separator + id + "_princ.jpg");
+
+        if (arq.exists()) {
+            return "/temp/" + id + "_princ.jpg";
+        } else {
+            return "/imagens/sem-foto.jpg";
+        }
+
+    }
 //public StreamedContent getDynamicImage() {
 // 
 // String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("image_id");

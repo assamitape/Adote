@@ -1,4 +1,4 @@
-#u2284
+#u132
 {
 	border-style: none;
 	border-color: transparent;
@@ -6,13 +6,13 @@
 	position: fixed;
 }
 
-#u2293
+#u156
 {
 	background-color: transparent;
 	position: fixed;
 }
 
-#u2292
+#u141
 {
 	border-style: none;
 	border-color: transparent;
@@ -20,7 +20,7 @@
 	position: fixed;
 }
 
-#u2289-4
+#u277-4
 {
 	background-color: transparent;
 	font-size: 14px;
@@ -30,77 +30,95 @@
 	position: fixed;
 }
 
-#u2285
-{
-	border-style: none;
-	border-color: transparent;
-	background-color: #FFD400;
-	position: fixed;
-}
-
-#u2290-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 700;
-	position: fixed;
-}
-
-#u2398-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 400;
-	position: fixed;
-}
-
-#u2288-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 300;
-	position: fixed;
-}
-
-#u2286-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 300;
-	position: fixed;
-}
-
-#u2287-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 300;
-	position: fixed;
-}
-
-#u2291-4
-{
-	background-color: transparent;
-	font-size: 14px;
-	color: #000000;
-	font-family: '__Hurme Geometric Sans 3_5';
-	font-weight: 300;
-	position: fixed;
-}
-
-#u2289-4:hover p,#u2290-4:hover p,#u2398-4:hover p,#u2288-4:hover p,#u2286-4:hover p,#u2287-4:hover p,#u2291-4:hover p
+#u277-4:hover p
 {
 	color: #F7931E;
+	visibility: inherit;
+}
+
+#u273-4
+{
+	background-color: transparent;
+	font-size: 14px;
+	color: #000000;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: fixed;
+}
+
+#u273-4:hover p
+{
+	color: #F7931E;
+	visibility: inherit;
+}
+
+#u185-4
+{
+	background-color: transparent;
+	font-size: 14px;
+	color: #000000;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: fixed;
+}
+
+#u185-4:hover p
+{
+	color: #F7931E;
+	visibility: inherit;
+}
+
+#u269-4
+{
+	background-color: transparent;
+	font-size: 14px;
+	color: #000000;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: fixed;
+}
+
+#u269-4:hover p
+{
+	color: #F7931E;
+	visibility: inherit;
+}
+
+#u186-4
+{
+	background-color: transparent;
+	font-size: 14px;
+	color: #000000;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: fixed;
+}
+
+#u186-4:hover p
+{
+	color: #F7931E;
+	visibility: inherit;
+}
+
+#u270-4
+{
+	background-color: transparent;
+	font-size: 14px;
+	color: #000000;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: fixed;
+}
+
+#u270-4:hover p
+{
+	color: #F7931E;
+	visibility: inherit;
+}
+
+#u277-4.MuseLinkActive p,#u273-4.MuseLinkActive p,#u185-4.MuseLinkActive p,#u269-4.MuseLinkActive p,#u186-4.MuseLinkActive p,#u270-4.MuseLinkActive p
+{
+	color: #FBB03B;
 	visibility: inherit;
 }
 

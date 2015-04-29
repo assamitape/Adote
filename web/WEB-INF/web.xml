@@ -18,6 +18,7 @@
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -34,23 +35,23 @@
 
 
     <context-param>
-    <param-name>primefaces.THEME</param-name>
-    <param-value>bootstrap</param-value>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
     </context-param> 
 
     <context-param>
-    <param-name>primefaces.UPLOADER</param-name>
-    <param-value>commons</param-value>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>commons</param-value>
     </context-param> 
 
     <context-param>   
-    <param-name>com.sun.faces.writeStateAtFormEnd</param-name>   
-    <param-value>false</param-value>   
+        <param-name>com.sun.faces.writeStateAtFormEnd</param-name>   
+        <param-value>false</param-value>   
     </context-param>    
 
     <context-param>   
-    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>   
-    <param-value>client</param-value>   
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>   
+        <param-value>client</param-value>   
     </context-param>    
 
 </web-app>

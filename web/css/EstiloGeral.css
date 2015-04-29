@@ -9,33 +9,33 @@ body{
 }
 
 .menuMiddle{
-   
+
     /*padding-left: 31%;*/
-   // position:absolute;
-   // left:50%;
+    // position:absolute;
+    // left:50%;
     //margin-left: -450px; /* metade da largura */
     width:100%;
     font-weight: bold;
     border-width: 0;
 }
 .menuMiddle :hover{
-/*     -webkit-box-shadow: 0px 0px 0 #333;
-     -moz-box-shadow: 0px 0px 0 #333;
-     box-shadow: 0px 0px 0 #333;*/
-/*     border-width: 0px;*/
-   //  background-color: transparent;
+    /*     -webkit-box-shadow: 0px 0px 0 #333;
+         -moz-box-shadow: 0px 0px 0 #333;
+         box-shadow: 0px 0px 0 #333;*/
+    /*     border-width: 0px;*/
+    //  background-color: transparent;
 }
 
 .meusAnimais{
-    
- //  padding-left: 25%;
+
+    //  padding-left: 25%;
     border-width: 0px;
-    
+
 }
 
 .subMenuMiddle {
-/*    background-color: darkorange;
- border-width: 0px;*/
+    /*    background-color: darkorange;
+     border-width: 0px;*/
 }
 
 /*#container {
@@ -48,4 +48,18 @@ body{
 
 .semTraco{
     text-decoration: none;
+    font-weight: 300;
+    color: #254035;
+    font-family: '__Hurme Geometric Sans 3_5';
+}
+
+
+.semTraco2
+{
+    text-transform: uppercase;
+    text-decoration: none;	
+    background-color: transparent;
+    color: #FBB03B;
+    font-family: '__Hurme Geometric Sans 3_5';
+    font-weight: 700;
 }
