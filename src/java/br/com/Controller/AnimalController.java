@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -49,6 +50,26 @@ public class AnimalController implements Serializable {
     private boolean exibeFoto3;
     private UploadedFile file;
     private List<String> images;
+
+    public boolean filterByName(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        String carName = value.toString().toUpperCase();
+        filterText = filterText.toUpperCase();
+
+        if (carName.contains(filterText)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void iniciaFotos(int id) {
 
@@ -190,8 +211,7 @@ public class AnimalController implements Serializable {
         try {
 
             AnimalDAO animalDAO = new AnimalDAO();
-
-            animalDAO.listarAnimalParaDoacao();
+            
             listaAnimaisParaDoacao = new ListDataModel(animalDAO.listarAnimalParaDoacao());
             return listaAnimaisParaDoacao;
         } catch (SQLException ex) {
@@ -249,10 +269,17 @@ public class AnimalController implements Serializable {
     public void deletaAnimal() {
         try {
             AnimalDAO animalDAO = new AnimalDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance();
 
-            if (animalDAO.excluirAnimal(animal)) {
-                msgDelecaoAnimal();
-                getListaAnimaisParaDoacao();
+            if (animal == null) {
+                contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Um animal precisa ser selecionado!", ""));
+
+            } else {
+
+                if (animalDAO.excluirAnimal(animal)) {
+                    msgDelecaoAnimal();
+                    getListaAnimaisParaDoacao();
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,6 +298,26 @@ public class AnimalController implements Serializable {
             } else {
                 if (animalDAO.autorizaAnimal(animal)) {
                     contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autorizado com sucesso!", ""));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void negarAnimal() {
+        try {
+            AnimalDAO animalDAO = new AnimalDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance();
+
+            if (animal == null) {
+                contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Um registro precisa ser selecionado!", ""));
+
+            } else {
+                if (animalDAO.negaAnimal(animal)) {
+                    contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Animal negado com sucesso!", ""));
+                    //IMPLEMENTAR FUNÇÃO PARA ENVIAR EMAIL PARA O DONO AO NEGAR A PUBLICAÇÃO
                 }
             }
         } catch (SQLException ex) {

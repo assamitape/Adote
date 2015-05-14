@@ -5,70 +5,108 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <ui:decorate template="administracao.xhtml">
         <ui:define name="centro">
-<!--  <h:head>
-        <title>Meus Animais</title>
-    </h:head>
-<h:body>-->
-<h:form>
+            <!--  <h:head>
+                    <title>Meus Animais</title>
+                </h:head>
+            <h:body>-->
+            <h:form>
                 <p:tooltip />
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                
-                <p:dataTable id="tableAnimais" value="#{animalController.listaAnimaisGeral}" var="lista" 
+
+                <p:dataTable id="tableAnimais" draggableColumns="true" resizableColumns="true" widgetVar="animalTable" value="#{animalController.listaAnimaisGeral}" var="lista" 
                              selectionMode="single" selection="#{animalController.animal}" rowKey="#{lista.id}">
-                    
-                    <p:column headerText="ID">
-                        <p:outputLabel value="#{lista.id}"/>
+
+                    <p:column headerText="ID" filterBy="#{lista.id}" filterMatchMode="exact">
+                        <h:outputText value="#{lista.id}"/>
                     </p:column>
 
-                    <p:column headerText="NOME">
-                        <p:outputLabel value="#{lista.descricao}"/>
+                    <p:column headerText="NOME" filterBy="#{lista.descricao}" filterFunction="#{animalController.filterByName}">
+                        <h:outputText value="#{lista.descricao}"/>
                     </p:column>
-                    
-                    <p:column headerText="IDADE">
-                        <p:outputLabel value="#{lista.idade}">
+
+                    <p:column headerText="IDADE" width="200" filterBy="#{lista.getIdadeExtenso()}" filterMatchMode="equals">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('animalTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="De 0 mês a 3 meses" itemValue="De 0 mês a 3 meses"/>
+                                <f:selectItem itemLabel="De 4 meses a 7 meses" itemValue="De 4 meses a 7 meses"/>
+                                <f:selectItem itemLabel="De 8 meses a 1 ano" itemValue="De 8 meses a 1 ano"/>
+                                <f:selectItem itemLabel="De 2 anos a 4 anos" itemValue="De 2 anos a 4 anos"/>
+                                <f:selectItem itemLabel="Acima de 4 anos" itemValue="Acima de 4 anos"/>
+                            </p:selectOneMenu>
+                        </f:facet>  
+
+
+                        <p:outputLabel value="#{lista.getIdadeExtenso()}">
                         </p:outputLabel>
                     </p:column>
 
-                    <p:column headerText="HISTORICO">
-                        <p:outputLabel value="#{lista.historico}"/>
+                    <p:column headerText="STATUS" filterBy="#{lista.status}" filterMatchMode="equals">
+                        <f:facet name='filter'>
+                            <p:selectOneMenu onchange="PF('animalTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="Disponível" itemValue="D"/>
+                                <f:selectItem itemLabel="Em Validação" itemValue="V"/>
+                                <f:selectItem itemLabel="Adotado" itemValue="A"/>
+                                <f:selectItem itemLabel="Negado" itemValue="N"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+
+                        <p:outputLabel value="#{lista.getStausExtenso()}" />
                     </p:column>
 
-                    <p:column headerText="STATUS">
-                        <p:outputLabel value="#{lista.status}"/>
+                    <p:column headerText="VACINADO" filterBy="#{lista.vacinado}" filterMatchMode="equals">
+                        <f:facet name='filter'>
+                            <p:selectOneMenu onchange="PF('animalTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="Sim" itemValue="S"/>
+                                <f:selectItem itemLabel="Não" itemValue="N"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+
+                        <p:outputLabel value="#{lista.getCampoSn(lista.vacinado)}"/>
                     </p:column>
 
-                    <p:column headerText="vacinado">
-                        <p:outputLabel value="#{lista.vacinado}"/>
+                    <p:column headerText="VERMIFUGADO" filterBy="#{lista.vermifugado}" filterMatchMode="equals">
+                        <f:facet name='filter'>
+                            <p:selectOneMenu onchange="PF('animalTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="Sim" itemValue="S"/>
+                                <f:selectItem itemLabel="Não" itemValue="N"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+
+                        <p:outputLabel value="#{lista.getCampoSn(lista.vermifugado)}"/>
                     </p:column>
 
-                    <p:column headerText="vermifugado">
-                        <p:outputLabel value="#{lista.vermifugado}"/>
-                    </p:column>
-
-                    <p:column headerText="Dono">
-                        <p:outputLabel value="#{lista.idCliente}"/>
+                    <p:column headerText="DONO"  filterBy="#{lista.idCliente}" filterMatchMode="exact">
+                        <h:outputText value="#{lista.idCliente}"/>
                     </p:column>
 
                     <f:facet name="footer" >
 
-                        <p:commandButton  process="tableAnimais" icon="ui-icon-search" value="Editar" actionListener="#{animalController.escondeBtnSalvar()}" action="cadanimais" />
 
-                        <p:commandButton  process="tableAnimais" actionListener="#{animalController.autorizarAnimal()}" update="tableAnimais" icon="ui-icon-search" value="Autorizar">
+
+                        <p:commandButton  process="tableAnimais" actionListener="#{animalController.autorizarAnimal()}" update="tableAnimais" icon="ui-icon-search" value="Autorizar Publicação">
                             <p:confirm header="Atenção" message="Autorizar a publicação do animal #{lista.nome}?" icon="ui-icon-alert" />
                         </p:commandButton>
 
+                        <p:commandButton  process="tableAnimais" actionListener="#{animalController.negarAnimal()}" update="tableAnimais" icon="ui-icon" value="Negar Publicação">
+                            <p:confirm header="Atenção" message="Deseja negar a publicação do animal #{lista.nome}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
                         <p:commandButton value="Deletar" actionListener="#{animalController.deletaAnimal()}" update="tableAnimais" >
-                            <p:confirm header="Atenção" message="Deseja deletar o animal #{lista.nome}?" icon="ui-icon-alert" />
+                            <p:confirm header="Atenção" message="Deseja deletar o animal #{lista.nome}?" icon="ui-icon-delete" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="no" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
-                      
+
 
                     </f:facet>
                 </p:dataTable>
@@ -76,6 +114,6 @@
             </h:form>
         </ui:define>
     </ui:decorate>  
-<!--</h:body>-->
+    <!--</h:body>-->
 </html>
 

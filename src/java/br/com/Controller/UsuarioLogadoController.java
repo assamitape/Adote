@@ -8,8 +8,12 @@ package br.com.Controller;
   
 import br.com.Bean.UsuarioBean;
 import br.com.DAO.UsuarioDAO;
+import br.com.Utilitarios.Utilidades;
 import java.io.IOException;  
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger; 
 import javax.annotation.PostConstruct;  
@@ -17,12 +21,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;  
 import javax.faces.bean.SessionScoped;  
 import javax.faces.context.FacesContext;  
-  
-/** 
-* @author Cristian Urbainski 
-* @since 01/05/2012 
-*/  
-@ManagedBean  
+
+@ManagedBean(name="usuarioLogadoController")   
 @SessionScoped  
 
 /*  CLASSE QUE CONTROLA O ADMINISTRADOR LOGADO */
@@ -34,11 +34,12 @@ public class UsuarioLogadoController implements Serializable  {
     private static UsuarioLogadoController instance;  
   
     @PostConstruct   
-    public void inicializa()  
+    public void inicializa()   
     {  
         user = new UsuarioBean(); 
         usuarioLogado = Boolean.FALSE;  
-        instance = this;  
+        instance = this; 
+        
     }  
       
     public static UsuarioLogadoController getInstance() throws Exception  
@@ -129,5 +130,22 @@ public class UsuarioLogadoController implements Serializable  {
     public void setUser(UsuarioBean user) {  
         this.user = user;  
     }  
-      
+    /*
+    public void esqueciSenha(String user){
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Utilidades util = new Utilidades();
+        String novaSenha = util.gerarSenhaRandon();
+        try {
+            if(usuarioDAO.alterarSenha(user, novaSenha)){
+                util.enviaEmail(user, "", "Atualização de senha", "Sua senha foi atualizada. Ao realizar o login novamente, será possível "
+                        + "modificar para uma senha de sua preferência."+"\n"+" Nova senha: "+novaSenha);
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uma nova senha foi gerada e enviada para o endereço "+user, ""));
+                    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteLogadoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      */
 } 

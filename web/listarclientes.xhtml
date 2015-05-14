@@ -5,52 +5,111 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <ui:decorate template="administracao.xhtml">
         <ui:define name="centro">
-            <p:dataTable id="tableClientes" value="#{clienteController.listaCliente}" var="lista"  
-                         selectionMode="single"  selection="#{clienteController.cliente}" rowKey="#{lista.idCliente}">
-                <p:column headerText="ID">
-                    <p:outputLabel value="#{lista.idCliente}"/>
-                </p:column>
-                <p:column headerText="NOME">
-                    <p:outputLabel value="#{lista.nomeCliente}"/>
-                </p:column>
+            <h:form>
+                <p:tooltip />
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
-                <p:column headerText="CEP">
-                    <p:outputLabel value="#{lista.cep}"/>
-                </p:column>
-                <p:column headerText="ENDEREÇO">
-                    <p:outputLabel value="#{lista.endereco}"/>
-                </p:column>
-                <p:column headerText="CPF">
-                    <p:outputLabel value="#{lista.cpf}"/>
-                </p:column>
-                <p:column headerText="DT NASCIMENTO">
-                    <p:outputLabel value="#{lista.dtNascimento}"/>
-                </p:column>
-                <p:column headerText="ATIVO">
-                    <p:outputLabel value="#{lista.snAtivo}"/>
-                </p:column>
-                <f:facet name="footer" >
+                <p:dataTable id="tableClientes" widgetVar="cliTable" draggableColumns="true" resizableColumns="true"  value="#{clienteController.listaCliente}" var="lista"  
+                             selectionMode="single"  selection="#{clienteController.cliente}" rowKey="#{lista.id}">
 
-                    <p:commandButton  process="tableClientes" icon="ui-icon-search" value="Editar" actionListener="#{clienteController.escondeBtnSalvar()}" action="cadclientes" />
+                    <p:column headerText="ID" filterBy="#{lista.id}" filterMatchMode="exact" >
+                        <h:outputText value="#{lista.id}"/>
+                    </p:column>
+                    <p:column headerText="NOME" filterBy="#{lista.nome}" filterFunction="#{animalController.filterByName}" >
+                        <h:outputText value="#{lista.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="EMAIL" filterBy="#{lista.email}" filterFunction="#{animalController.filterByName}" >
+                        <h:outputText value="#{lista.email}"/>
+                    </p:column>
+
+                    <p:column headerText="TELEFONE" filterBy="#{lista.telefone}" filterFunction="#{animalController.filterByName}" >
+                        <h:outputText value="#{lista.telefone}"/>
+                    </p:column>
+
+                    <p:column headerText="ATIVO" filterBy="#{lista.getSnAtivoExtenso()}" filterMatchMode="equals">
+                        <f:facet name='filter'>
+                            <p:selectOneMenu onchange="PF('cliTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="Sim" itemValue="Sim"/>
+                                <f:selectItem itemLabel="Não" itemValue="Não"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <p:outputLabel value="#{lista.getSnAtivoExtenso()}"/>
+                    </p:column>
+
+                    <p:column headerText="ESTADO" filterBy="#{lista.estado}" filterMatchMode="equals" >
+                        <f:facet name='filter'>
+                            <p:selectOneMenu onchange="PF('cliTable').filter()">
+                                <f:selectItem itemLabel="Todos" itemValue=""/>
+                                <f:selectItem itemLabel="AC" itemValue="AC"/>
+                                <f:selectItem itemLabel="AL" itemValue="AL"/>
+                                <f:selectItem itemLabel="AP" itemValue="AP"/>
+                                <f:selectItem itemLabel="AM" itemValue="AM"/>
+                                <f:selectItem itemLabel="BA" itemValue="BA"/>
+                                <f:selectItem itemLabel="CE" itemValue="CE"/>
+                                <f:selectItem itemLabel="DF" itemValue="DF"/>
+                                <f:selectItem itemLabel="ES" itemValue="ES"/>
+                                <f:selectItem itemLabel="GO" itemValue="GO"/>
+                                <f:selectItem itemLabel="MA" itemValue="MA"/>
+                                <f:selectItem itemLabel="MT" itemValue="MT"/>
+                                <f:selectItem itemLabel="MS" itemValue="MS"/>
+                                <f:selectItem itemLabel="MG" itemValue="MG"/>
+                                <f:selectItem itemLabel="PR" itemValue="PR"/>
+                                <f:selectItem itemLabel="PB" itemValue="PB"/>
+                                <f:selectItem itemLabel="PE" itemValue="PE"/>
+                                <f:selectItem itemLabel="PI" itemValue="PI"/>
+                                <f:selectItem itemLabel="RJ" itemValue="RJ"/>
+                                <f:selectItem itemLabel="RN" itemValue="RN"/>
+                                <f:selectItem itemLabel="RS" itemValue="RS"/>
+                                <f:selectItem itemLabel="RO" itemValue="RO"/>
+                                <f:selectItem itemLabel="RR" itemValue="RR"/>
+                                <f:selectItem itemLabel="SC" itemValue="SC"/>
+                                <f:selectItem itemLabel="SP" itemValue="SP"/>
+                                <f:selectItem itemLabel="SE" itemValue="SE"/>
+                                <f:selectItem itemLabel="TO" itemValue="TO"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <p:outputLabel value="#{lista.estado}"/>
+                    </p:column>
+
+                    <p:column headerText="CIDADE"  filterBy="#{lista.cidade}" filterFunction="#{animalController.filterByName}" >
+                        <h:outputText value="#{lista.cidade}"/>
+                    </p:column>
+
+                    <p:column headerText="BAIRRO" filterBy="#{lista.bairro}"  filterFunction="#{animalController.filterByName}" >
+                        <h:outputText value="#{lista.bairro}"/>
+                    </p:column>                
+
+                    <f:facet name="footer"  >
 
 
-                    <p:commandButton value="Deletar" actionListener="#{clienteController.deletaCliente()}" update="tableClientes" >
-                        <p:confirm header="Atenção" message="Deseja deletar o cliente #{lista.nome}?" icon="ui-icon-alert" />
-                    </p:commandButton>
+                        <p:commandButton value="Ativar" actionListener="#{clienteController.ativarCliente()}" update="tableClientes" >
+                            <p:confirm header="Atenção" message="Deseja ativar o cliente?" icon="ui-icon-alert" />
+                        </p:commandButton>
 
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                        <p:commandButton value="yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="no" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>
+                        <p:commandButton value="Desativar" actionListener="#{clienteController.desativarCliente()}" update="tableClientes" >
+                            <p:confirm header="Atenção" message="Deseja desativar o cliente?" icon="ui-icon-alert" />
+                        </p:commandButton>
 
-                </f:facet>
+                        <p:commandButton value="Deletar" actionListener="#{clienteController.deletaCliente()}" update="tableClientes" >
+                            <p:confirm header="Atenção" message="Deseja deletar o cliente #{lista.nome}?" icon="ui-icon-alert" />
+                        </p:commandButton>
 
-            </p:dataTable>
-            
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                    </f:facet>
+
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:decorate>  
+
 </html>
 

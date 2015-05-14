@@ -49,7 +49,7 @@
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>meusanimais</from-outcome>
-            <to-view-id>/meusAnimais.xhtml</to-view-id>
+            <to-view-id>/meusanimais.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -72,7 +72,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/meusAnimais.xhtml</from-view-id>
+        <from-view-id>/meusanimais.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cadanimais</from-outcome>
             <to-view-id>/cadanimais.xhtml</to-view-id>

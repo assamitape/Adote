@@ -6,60 +6,74 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="css/loginUser.css" />
     </h:head>
-    
+
     <h:body style="background-image:url('#{request.contextPath}/imagens/fundo_login.jpg')">
         <!--<p:layout fullPage="true" >-->
-          
-            <p:layoutUnit  position="center" >
-                <h:form>
-                    <h:outputText value="#{clienteLogadoController.controlaTelaLogin()}"/> 
-                    <p:growl id="growlLogin"  sticky="true" />
-                    <p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />
-                    
-                    <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
-                        <center>
-                            <h:panelGrid columns="2" id="gridclientes">
-                                <p:outputLabel value="Email "/>
-                                <p:inputText id="login" value="#{clienteLogadoController.user.email}" requiredMessage="O login deve ser informado"/>
+        <p:messages id="messagesSenha" showDetail="true" autoUpdate="true" closable="true" />
+        
+        <p:layoutUnit  position="center" >
+            <h:form>
+                <h:outputText value="#{clienteLogadoController.controlaTelaLogin()}"/> 
 
-                                <p:outputLabel value="Senha "/>
-                                <p:password id="senha" value="#{clienteLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
-                            <br/>
-                            </h:panelGrid>
+                <p:dialog showHeader="false" visible="true" closable="false" draggable="false" resizable="false" width="420">
+                    <center>
+                        <p:tabView>
+                            <p:growl id="growlLogin"  sticky="true" />
 
-                            <p:commandButton value="Entrar" update="growlLogin" actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
-                               <br/> <br/>
-                            <p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />
-                        </center>                        
-                    </p:dialog>
+
+                            <p:tab title="Login">
+                                <br/>
+                                <h:panelGrid columns="2" id="gridclientes">
+                                    <!--<p:outputLabel value="Email "/>-->
+                                    <p:inputText placeholder="Email" id="login" size="40" value="#{clienteLogadoController.user.email}" requiredMessage="O login deve ser informado"/>
+
+                                    <!--<p:outputLabel value="Senha "/>-->
+                                    <p:password id="senha" placeholder="Senha" size="40" value="#{clienteLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
+                                    <br/>
+                                </h:panelGrid>
+
+                                <p:commandButton value="Entrar" update="growlLogin" actionListener="#{clienteLogadoController.fazerLogin(clienteLogadoController.user.email, clienteLogadoController.user.senha)}" />
+                                <br/> <br/>
+                            </p:tab>
+
+                            <p:tab title="Esqueci Minha Senha">
+
+                                <!--<p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />-->
+                                <br/>
+                                <p:outputPanel >
+                                    <center>
+                                        <!--<p:outputLabel value="Email "/>-->
+                                        <p:inputText id="email" placeholder="Email" size="40" value="#{clienteLogadoController.email}" requiredMessage="O email deve ser informado"/>
+                                        <br/>  <br/>
+
+                                        <p:commandButton   action="#{clienteLogadoController.esqueciSenha(clienteLogadoController.email)}"  value="Gerar nova senha">
+                                        </p:commandButton>
+                                    </center>
+                                </p:outputPanel>       
+                            </p:tab>
+                        </p:tabView>
+                        <br/>
+                        <p:link outcome="./animaisdisponiveis.jsf" value="Página Inicial"  />
+                    </center>                        
+                </p:dialog>
+
+
+                <p:dialog id="dialog" header="Atualizar Senha" widgetVar="Dialog" 
+                          modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
+
+                </p:dialog>
+
+            </h:form>
+        </p:layoutUnit>
+        <!--            <p:layoutUnit position="center" style="border-width: 0px ;max-width:15px;max-height:400px; ">
+                        <h:form>
                         
-            
-                    <p:dialog id="dialog" header="Atualizar Senha" widgetVar="Dialog" rendered="#{not empty animalController.animal}" 
-                              modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
-                        <p:outputPanel style="width: 400px">
-                        <center>
-                            <p:outputLabel value="Email "/>
-                            <p:inputText id="email" size="40" value="#{clienteLogadoController.user.email}" requiredMessage="O email deve ser informado"/>
-                            <br/>  <br/>
-                            
-                                <p:commandButton  actionListener="#{clienteLogadoController.esqueciSenha(clienteLogadoController.user.email)}"  value="Gerar nova senha">
-                                    <!--<p:confirm  header="Atenção" message="Este processo irá gerar uma nova senha e enviar para seu email, deseja continuar?"  icon="ui-icon-alert" />-->
-                                </p:commandButton>
-                            </center>
-                        </p:outputPanel>       
-                    
-                    </p:dialog>
-         
-                </h:form>
-            </p:layoutUnit>
-<!--            <p:layoutUnit position="center" style="border-width: 0px ;max-width:15px;max-height:400px; ">
-                <h:form>
-                
-                    <p:separator  style="width: 1px; height: 230px"/>
-                </h:form>                           
-            </p:layoutUnit>-->
-            
+                            <p:separator  style="width: 1px; height: 230px"/>
+                        </h:form>                           
+                    </p:layoutUnit>-->
+
         <!--</p:layout>-->
     </h:body>
 </html>

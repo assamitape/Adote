@@ -3,6 +3,7 @@ package br.com.DAO;
 import br.com.Utilitarios.Conexao;
 import java.sql.PreparedStatement;
 import br.com.Bean.UsuarioBean;
+import br.com.Utilitarios.Utilidades;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -136,7 +137,7 @@ public class UsuarioDAO implements Serializable {
             stm = con.prepareStatement(sql);
 
             stm.setString(1, usuario);
-            stm.setString(2, senha);
+            stm.setString(2,Utilidades.cripto(senha));
 //            stm.executeQuery();
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -259,6 +260,39 @@ public class UsuarioDAO implements Serializable {
                 Conexao.close(stm);
                 Conexao.close(rs);
 
+            }
+        }
+    }
+
+    public boolean alterarSenha(String usuarioEmail, String novaSenha) throws SQLException {
+        final boolean isConnSupplied = (userConn != null);
+        PreparedStatement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "UPDATE CLIENTE SET SENHA = ? WHERE EMAIL = ?;";
+
+            con = isConnSupplied ? userConn : Conexao.getConnection();
+            stm = con.prepareStatement(sql);
+
+            stm.setString(1, novaSenha);
+            stm.setString(2,Utilidades.cripto(usuarioEmail) );
+
+            stm.execute();
+
+            //con.commit();
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            Conexao.close(stm);
+            if (!isConnSupplied) {
+                Conexao.close(con);
+                Conexao.close(stm);
+                Conexao.close(rs);
             }
         }
     }

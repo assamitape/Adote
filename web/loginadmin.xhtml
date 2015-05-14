@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Administração</title>
+        <link rel="stylesheet" type="text/css" href="css/loginUser.css" />
+
+    </h:head>
+    <h:body style="background-image:url('#{request.contextPath}/imagens/fundo_login.jpg')">
+        <!--<p:layout fullPage="true" >-->
+
+        <p:layoutUnit  position="center" >
+            <h:form>
+                <h:outputText value="#{usuarioLogadoController.controlaTelaLogin()}"/> 
+                <p:growl id="growlLogin"  sticky="true" />
+                <p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />
+
+                <p:dialog header="Área Restrita" visible="true" closable="false" draggable="false" resizable="false" width="420">
+                    <center>
+                        <h:panelGrid columns="2" id="gridclientes">
+                            <p:outputLabel value="Login "/>
+                            <p:inputText id="login" value="#{usuarioLogadoController.user.login}" requiredMessage="O login deve ser informado"/>
+
+                            <p:outputLabel value="Senha "/>
+                            <p:password id="senha" value="#{usuarioLogadoController.user.senha}" requiredMessage="A senha deve ser informada"/>
+                            <br/>
+                        </h:panelGrid>
+
+                        <p:commandButton value="Entrar" update="growlLogin" actionListener="#{usuarioLogadoController.fazerLogin(usuarioLogadoController.user.login, usuarioLogadoController.user.senha)}" />
+                        <br/> <br/>
+
+                        <!--<p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />-->
+                        <br></br>
+                        <p:link outcome="./animaisdisponiveis.jsf" value="Página Inicial"  />
+                    </center>                        
+                </p:dialog>
+
+
+                <p:dialog id="dialog" header="Atualizar Senha" widgetVar="Dialog" rendered="#{not empty animalController.animal}" 
+                          modal="true" showEffect="fade" hideEffect="fade" appendTo="@(body)" resizable="false">
+                    <p:outputPanel style="width: 400px">
+                        <center>
+                            <p:outputLabel value="Email "/>
+                            <p:inputText id="email" size="40" value="#{clienteLogadoController.user.email}" requiredMessage="O email deve ser informado"/>
+                            <br/>  <br/>
+
+                            <p:commandButton  actionListener="#{clienteLogadoController.esqueciSenha}"  value="Gerar nova senha">
+                                <f:param name="user" value="#{clienteLogadoController.user.email}"/>
+                                <!--<p:confirm  header="Atenção" message="Este processo irá gerar uma nova senha e enviar para seu email, deseja continuar?"  icon="ui-icon-alert" />-->
+                            </p:commandButton>
+                        </center>
+                    </p:outputPanel>       
+
+                </p:dialog>
+
+            </h:form>
+        </p:layoutUnit>
+        <!--            <p:layoutUnit position="center" style="border-width: 0px ;max-width:15px;max-height:400px; ">
+                        <h:form>
+                        
+                            <p:separator  style="width: 1px; height: 230px"/>
+                        </h:form>                           
+                    </p:layoutUnit>-->
+
+        <!--</p:layout>-->
+    </h:body>
+</html>
+

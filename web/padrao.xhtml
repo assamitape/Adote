@@ -23,6 +23,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/menuDeslogado.css" />
         <link rel="stylesheet" type="text/css" href="css/animaisDisponiveis.css" />
+        <link rel="stylesheet" type="text/css" href="css/cadClientes.css" />
         <link rel="shortcut icon" href="imagens/favicon.ico?61395643"/>
     </h:head>
     <h:body>
@@ -41,7 +42,7 @@
             </div>
 
             <!--MENU DESLOGADO-->
-            <p:panel id="menuDeslogado" visible="true" styleClass="panelMenuLogado">
+            <p:panel id="menuDeslogado" visible="#{!clienteLogadoController.clienteLogado}" styleClass="panelMenuLogado">
                 <div class="browser_width colelem" id="u3653-bw">
                     <div id="u3653"><!-- group -->
                         <div class="clearfix" id="u3653_align_to_page">
@@ -49,16 +50,14 @@
                                 <h:link outcome="./login.jsf"  value="LOGIN" styleClass="menuLink" />
                             </div>
                             <div class="clearfix grpelem" id="u3655-4" data-muse-uid="U3655"><!-- content -->
-                                <!-- m_editable region-id="editable-static-tag-U3655" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                <h:link outcome="./cadclientes.jsf" onclick="#{clienteController.novoCliente()}"  value="NOVO USUÁRIO" styleClass="menuLink" />
-                                <!-- /m_editable -->
+                                <p:commandLink action="#{clienteController.escondeBntAlterar()}"  styleClass="menuLink" >
+                                    NOVO USUÁRIO
+                                </p:commandLink>
                             </div>
-                            <div class="clearfix grpelem" id="u3686-4" data-muse-uid="U3686"><!-- content -->
+                            <div class="clear   fix grpelem" id="u3686-4" data-muse-uid="U3686"><!-- content -->
                                 <h:link outcome="./animaisdisponiveis.jsf"  value="REDE DE ADOÇÃO" styleClass="menuLink" />
-                                <!-- /m_editable -->
                             </div>
                             <div class="clip_frame grpelem" id="u3687"><!-- image -->
-                                <!-- m_editable region-id="editable-static-tag-U3687" template="index.html" data-type="image" data-ice-options="" -->
                                 <h:link outcome="./administracao.jsf" styleClass="menuLink" >
                                     <img class="block" id="u3687_img" src="imagens/admin.png" alt="" title="Login do Administrador" width="35" height="35" data-muse-uid="U3687" data-muse-src="images/admin.png"/>
                                 </h:link>
@@ -76,18 +75,14 @@
             <div class="clearfix colelem" id="pu3557-3"><!-- group -->
                 <div class="browser_width grpelem" id="u3557-3-bw">
                     <div class="museBGSize clearfix" id="u3557-3" data-muse-uid="U3557"><!-- content -->
-                        <!-- m_editable region-id="editable-static-tag-U3557" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
                         <p>&nbsp;</p>
-                        <!-- /m_editable -->
                     </div>
                 </div>
                 <div class="clearfix grpelem" id="u3648"><!-- column -->
                     <div class="clearfix colelem" id="pu3649-6"><!-- group -->
                         <div class="clearfix grpelem" id="u3649-6" data-muse-uid="U3649"><!-- content -->
-                            <!-- m_editable region-id="editable-static-tag-U3649" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
                             <p id="u3649-2">REDE DE</p>
                             <p id="u3649-4">ADOÇÃO</p>
-                            <!-- /m_editable -->
                         </div>
                         <div class="grpelem" id="u3651"><!-- simple frame --></div>
                         <div class="grpelem" id="u3650"><!-- simple frame --></div>
@@ -98,64 +93,34 @@
             <!--TITULO DO TOPO-->
 
             <!--MENU LOGADO-->
-            <p:panel id="menuLogado" visible="false" styleClass="panelMenuLogado">
-                <div class="clearfix colelem" id="pu3347"><!-- group -->
-                    <div class="browser_width grpelem" id="u3347-bw">
-                        <div id="u3347"><!-- group -->
-                            <div class="clearfix" id="u3347_align_to_page">
-                                <div class="clearfix grpelem" id="u3348-4" data-muse-uid="U3348"><!-- content -->
-                                    <!-- m_editable region-id="editable-static-tag-U3348" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                    <p>MEU PERFIL</p>
-                                    <!-- /m_editable -->
-                                </div>
-                                <div class="clearfix grpelem" id="u3352-4" data-muse-uid="U3352"><!-- content -->
-                                    <!-- m_editable region-id="editable-static-tag-U3352" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                    <p>NOVO CADASTRO</p>
-                                    <!-- /m_editable -->
-                                </div>
-                                <div class="clearfix grpelem" id="u3706-4" data-muse-uid="U3706"><!-- content -->
-                                    <!-- m_editable region-id="editable-static-tag-U3706" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                    <p>REDE DE ADOÇÃO</p>
-                                    <!-- /m_editable -->
-                                </div>
-                                <div class="clearfix grpelem" id="u3708-4" data-muse-uid="U3708"><!-- content -->
-                                    <!-- m_editable region-id="editable-static-tag-U3708" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                    <p>SAIR</p>
-                                    <!-- /m_editable -->
-                                </div>
-                                <div class="clip_frame grpelem" id="u3695"><!-- image -->
-                                    <!-- m_editable region-id="editable-static-tag-U3695" template="index.html" data-type="image" data-ice-options="" -->
+            <p:panel id="menuLogado" visible="#{clienteLogadoController.clienteLogado}" styleClass="panelMenuLogado">
+
+                <div class="browser_width colelem" id="u3347-bw">
+                    <div id="u3347"><!-- group -->
+                        <div class="clearfix" id="u3347_align_to_page">
+
+                            <div class="clearfix grpelem" id="u3711-4" data-muse-uid="U3711"><!-- content -->
+                                <p:commandLink action="#{clienteController.escondeBtnSalvar()}"  styleClass="menuLink" >
+                                   ATUALIZAR DADOS
+                                </p:commandLink>
+                            </div>
+                            <div class="clearfix grpelem" id="u3713-4" data-muse-uid="U3713">  
+                                <h:link outcome="./meusAnimais.jsf"  value="MEUS ANIMAIS" styleClass="menuLink" />
+                            </div>
+                            <div class="clearfix grpelem" id="u3352-4" data-muse-uid="U3352">  
+                                <h:link outcome="./animaisdisponiveis.jsf"  value="REDE DE ADOÇÃO" styleClass="menuLink" />
+                            </div>
+                            <div class="clearfix grpelem" id="u3706-4" data-muse-uid="U3706">  
+                                <h:commandLink action="#{clienteController.logout()}"  value="SAIR" styleClass="menuLink" />
+                            </div>
+                            <div class="clip_frame grpelem" id="u3695">  
+                                <h:link outcome="./administracao.jsf" styleClass="menuLink" >
                                     <img class="block" id="u3695_img" src="imagens/admin.png" alt="" title="Login do Administrador" width="35" height="35" data-muse-uid="U3695" data-muse-src="images/admin.png"/>
-                                    <!-- /m_editable -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="PamphletWidget clearfix grpelem" id="pamphletu3358"><!-- none box -->
-                        <div class="ThumbGroup clearfix grpelem" id="u3367"><!-- none box -->
-                            <div class="popup_anchor">
-                                <div class="Thumb popup_element" id="u3369"><!-- simple frame --></div>
-                            </div>
-                        </div>
-                        <div class="popup_anchor" id="u3359popup">
-                            <div class="ContainerGroup clearfix" id="u3359"><!-- stack box -->
-                                <div class="Container invi clearfix grpelem" id="u3362"><!-- column -->
-                                    <div class="clearfix colelem" id="u3373-4" data-muse-uid="U3373"><!-- content -->
-                                        <!-- m_editable region-id="editable-static-tag-U3373" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                        <p>ATUALIZAR DADOS</p>
-                                        <!-- /m_editable -->
-                                    </div>
-                                    <div class="clearfix colelem" id="u3375-4" data-muse-uid="U3375"><!-- content -->
-                                        <!-- m_editable region-id="editable-static-tag-U3375" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
-                                        <p>MEUS ANIMAIS</p>
-                                        <!-- /m_editable -->
-                                    </div>
-                                </div>
+                                </h:link>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </p:panel>
             <!--                </div>
                         </div>-->

@@ -5,45 +5,46 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title></title>
+        <title>
+            Administração
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
+        <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
+        <link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?" />
+
+
     </h:head>
     <h:body>
 
         <p:layout fullPage="true" >
-            
-            <p:layoutUnit position="west" size="280" >
-<!--menu lateral sistema-->        
+
+            <p:layoutUnit position="west" size="160" style="border: 0px">
+                <!--menu lateral sistema-->        
                 <h:form >
                     <h:outputText value="#{usuarioLogadoController.verificaLogado()}"/>
-                    <p:menu>
-                        <p:menuitem value="Pagina Inicial"   action="index">
+                    <p:menu style="border: 0px; width:  100px;">
+
+                        <p:menuitem value="Painel de Animais"  url="./listaranimais.jsf">
                         </p:menuitem>
-                        
-                        <p:menuitem value="Cadastro de Animais"  action="cadanimais" actionListener="#{animalController.novoAnimal()}">
+
+                        <p:menuitem value="Painel de Clientes" url="./listarclientes.jsf">
                         </p:menuitem>
-                        <p:menuitem value="Painel de Animais"  action="listaranimais">
-                        </p:menuitem>
-                        <p:menuitem value="Cadastro de  Clientes"  action="cadclientes" actionListener="#{clienteController.novoCliente()}">
-                        </p:menuitem>
-                        <p:menuitem value="Painel de Clientes" action="listarclientes">
-                        </p:menuitem>
-                        <p:menuitem value="Animais Disponiveis" action="animaisdisponiveis">
-                        </p:menuitem>
-                        <p:menuitem value="Sair" action="/cadanimais?faces-redirect=true" actionListener="#{usuarioController.logout()}">
+
+                        <p:menuitem value="Sair" actionListener="#{usuarioController.logout()}">
                         </p:menuitem>
 
                     </p:menu>
-                   
+
                 </h:form>
             </p:layoutUnit> 
             <p:layoutUnit position="center" >
-              
+
                 <ui:insert name="centro">
-                    index
+
                 </ui:insert>
-                
+
             </p:layoutUnit>
-            
+
         </p:layout>
     </h:body>
 </html>

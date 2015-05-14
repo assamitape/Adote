@@ -32,7 +32,7 @@ private static final long serialVersionUID = 1L;
     public static ClienteBean limpaCliente() {
         if (instancia != null) {
             instancia = null;
-            instancia = new ClienteBean();
+      //      instancia = new ClienteBean();
         }
         return instancia;
     }
@@ -120,6 +120,14 @@ private static final long serialVersionUID = 1L;
         return snAtivo;
     }
 
+    public String getSnAtivoExtenso() {
+        if (snAtivo.equals("S")){
+            return "Sim";
+        }else{
+            return "Nao";
+        }
+    }
+    
     public void setSnAtivo(String snAtivo) {
         this.snAtivo = snAtivo;
     }

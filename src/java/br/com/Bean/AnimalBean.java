@@ -217,6 +217,8 @@ public class AnimalBean implements Serializable{
               return "Adotado";
           case "D":
               return "Disponível";
+          case "N":
+              return "Negado";
           default:
               return "";
       }      

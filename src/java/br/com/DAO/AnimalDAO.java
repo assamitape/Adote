@@ -110,7 +110,7 @@ public class AnimalDAO implements Serializable {
             stm.setInt(12, animal.getId());
 
             stm.execute();
-          //  con.commit();
+            //  con.commit();
             stm.close();
             return true;
 
@@ -138,7 +138,7 @@ public class AnimalDAO implements Serializable {
 
             stm.setInt(1, animal.getId());
             stm.execute();
-          //  con.commit();
+            //  con.commit();
             stm.close();
             return true;
 
@@ -209,7 +209,8 @@ public class AnimalDAO implements Serializable {
             String sql = "SELECT A.ID, A.DESCRICAO, A.IDADE, A.HISTORICO, A.STATUS, A.ID_CLIENTE, "
                     + "   A.VACINADO, A.VERMIFUGADO, A.SEXO, A.FOTO_PRINCIPAL, A.FOTO1, A.FOTO2, A.FOTO3, "
                     + "   C.BAIRRO, C.CIDADE, C.ESTADO"
-                    + "   FROM ANIMAL A, CLIENTE C WHERE A.ID_CLIENTE = C.ID AND A.STATUS = 'D' ";
+                    + "   FROM ANIMAL A, CLIENTE C WHERE A.ID_CLIENTE = C.ID AND A.STATUS = 'D' "
+                    + " ORDER BY DT_AUTORIZACAO DESC";
             con = isConnSupplied ? userConn : Conexao.getConnection();
             stm = con.prepareStatement(sql);
 
@@ -267,7 +268,7 @@ public class AnimalDAO implements Serializable {
             stm.setInt(1, animal.getId());
 
             stm.execute();
-          //  con.commit();
+            //  con.commit();
             stm.close();
             return true;
         } catch (Exception ex) {
@@ -296,7 +297,7 @@ public class AnimalDAO implements Serializable {
             stm.setInt(1, animal.getId());
 
             stm.execute();
-          //  con.commit();
+            //  con.commit();
             stm.close();
             return true;
 
@@ -306,6 +307,36 @@ public class AnimalDAO implements Serializable {
 
         } finally {
             Conexao.close(stm);
+            if (!isConnSupplied) {
+                Conexao.close(con);
+            }
+        }
+    }
+
+    public boolean negaAnimal(AnimalBean animal) throws SQLException {
+        final boolean isConnSupplied = (userConn != null);
+        PreparedStatement stm = null;
+        Connection con = null;
+        try {
+            String sql = "UPDATE ANIMAL SET STATUS = 'N' "
+                    + "WHERE ID = ?";
+            con = isConnSupplied ? userConn : Conexao.getConnection();
+            stm = con.prepareStatement(sql);
+
+            stm.setInt(1, animal.getId());
+
+            stm.execute();
+            //  con.commit();
+            stm.close();
+            return true;
+
+        } catch (Exception ex) {
+            Logger.getLogger(AnimalDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            Conexao.close(stm);
+
             if (!isConnSupplied) {
                 Conexao.close(con);
             }
@@ -327,7 +358,7 @@ public class AnimalDAO implements Serializable {
             stm.setInt(1, animal.getId());
 
             stm.execute();
-           // con.commit();
+            // con.commit();
             stm.close();
             return true;
 
@@ -342,4 +373,45 @@ public class AnimalDAO implements Serializable {
             }
         }
     }
+
+    public List<AnimalBean> listarAnimalExibicaoVencida() throws SQLException {
+
+        List<AnimalBean> lista = new ArrayList<>();
+        final boolean isConnSupplied = (userConn != null);
+        PreparedStatement stm = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT ID, DESCRICAO, ID_CLIENTE FROM ANIMAL where status = 'D' and cast(dt_autorizacao as date) + interval '1 week' >= ?";
+            con = isConnSupplied ? userConn : Conexao.getConnection();
+            stm = con.prepareStatement(sql);
+            
+            stm.setDate(1, new Date(System.currentTimeMillis()) );
+            
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                AnimalBean animal = new AnimalBean();
+
+                animal.setId(rs.getInt("ID"));
+                animal.setDescricao(rs.getString("DESCRICAO"));
+                animal.setIdCliente(rs.getInt("ID_CLIENTE"));
+
+                lista.add(animal);
+            }
+            stm.close();
+            return lista;
+        } catch (Exception ex) {
+            Logger.getLogger(AnimalDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            Conexao.close(stm);
+            if (!isConnSupplied) {
+                Conexao.close(con);
+                Conexao.close(rs);
+            }
+        }
+        return lista;
+    }
+
 }

@@ -10,72 +10,72 @@
     <h:body>
 
         <p:layout fullPage="true" >
-<!--            <p:layoutUnit position="north" resizable="false" size="150">
-menu site parte 1        
-                <center> AQUI TERÁ UMA IMAGEM</center>
-                
-                <h:form style="bottom: 0; width:200 ; float: left; background-color: blue">
-                    <p:menubar style="border-width: 0; background-color: white">
-                        <p:menuitem value="aaaaa"/>
-                        <p:menuitem value="bbbbb"/>
-                        <p:menuitem value="ccccc"/>
-                        <p:menuitem value="ddddd"/>
-                        <p:menuitem value="aaaaa"/>
-                    </p:menubar>
-                </h:form>    
-menu site parte 2
-                <h:form style="bottom: 0; width:200; float: right; background-color: blue">
-                    <p:menubar style="border-width: 0; background-color: white">
-                        <p:menuitem value="11111"/>
-                        <p:menuitem value="22222"/>
-                        <p:menuitem value="33333"/>
-                        <p:menuitem value="44444"/>
-                        <p:menuitem value="55555"/>
-                    </p:menubar>
-                </h:form>    
-            </p:layoutUnit>-->
-            
-            <p:layoutUnit position="west" size="260" style="position: absolute; bottom: 0">
-<!--menu lateral sistema-->        
-                <h:form style="width: 100">
-<!--                    <p:menu style="width: 100">
-                        <p:menuitem value="Pagina Inicial"   action="index">
-                        </p:menuitem>
-                        
-                        <p:menuitem value="Cadastro de Animais"  action="cadanimais" actionListener="#{animalController.novoAnimal()}">
-                        </p:menuitem>
-                        <p:menuitem value="Painel de Animais"  action="listaranimais">
-                        </p:menuitem>
-                        <p:menuitem value="Clientes/Adotantes"  action="cadclientes" actionListener="#{clienteController.novoCliente()}">
-                        </p:menuitem>
-                        <p:menuitem value="Painel de Clientes/Adotantes" action="listarclientes">
-                        </p:menuitem>
-                        <p:menuitem value="Animais Disponiveis" action="animaisdisponiveis">
-                        </p:menuitem>
-                        <p:menuitem value="Painel de Usuários do Sistema" >
-                        </p:menuitem>
-                        <p:menuitem value="teste Login" action="login" >
-                        </p:menuitem>
+            <!--            <p:layoutUnit position="north" resizable="false" size="150">
+            menu site parte 1        
+                            <center> AQUI TERÁ UMA IMAGEM</center>
+                            
+                            <h:form style="bottom: 0; width:200 ; float: left; background-color: blue">
+                                <p:menubar style="border-width: 0; background-color: white">
+                                    <p:menuitem value="aaaaa"/>
+                                    <p:menuitem value="bbbbb"/>
+                                    <p:menuitem value="ccccc"/>
+                                    <p:menuitem value="ddddd"/>
+                                    <p:menuitem value="aaaaa"/>
+                                </p:menubar>
+                            </h:form>    
+            menu site parte 2
+                            <h:form style="bottom: 0; width:200; float: right; background-color: blue">
+                                <p:menubar style="border-width: 0; background-color: white">
+                                    <p:menuitem value="11111"/>
+                                    <p:menuitem value="22222"/>
+                                    <p:menuitem value="33333"/>
+                                    <p:menuitem value="44444"/>
+                                    <p:menuitem value="55555"/>
+                                </p:menubar>
+                            </h:form>    
+                        </p:layoutUnit>-->
 
-                    </p:menu>-->
+            <p:layoutUnit position="west" size="260" style="position: absolute; bottom: 0">
+                <!--menu lateral sistema-->        
+                <h:form style="width: 100">
+                    <!--                    <p:menu style="width: 100">
+                                            <p:menuitem value="Pagina Inicial"   action="index">
+                                            </p:menuitem>
+                                            
+                                            <p:menuitem value="Cadastro de Animais"  action="cadanimais" actionListener="#{animalController.novoAnimal()}">
+                                            </p:menuitem>
+                                            <p:menuitem value="Painel de Animais"  action="listaranimais">
+                                            </p:menuitem>
+                                            <p:menuitem value="Painel de Clientes/Adotantes" action="listarclientes">
+                                            </p:menuitem>
+                                            <p:menuitem value="Animais Disponiveis" action="animaisdisponiveis">
+                                            </p:menuitem>
+                                            <p:menuitem value="Painel de Usuários do Sistema" >
+                                            </p:menuitem>
+                                            <p:menuitem value="teste Login" action="login" >
+                                            </p:menuitem>
+                    
+                                        </p:menu>-->
 
                     <p:commandButton value="Quero Anunciar" action="/login.xhtml?faces-redirect=true" /> <br></br>
                     <p:commandButton value="Quero Adotar" action="/animaisdisponiveis?faces-redirect=true"/>
                     <p:commandButton value="Administrador" action="/loginAdmin?faces-redirect=true" />
-                    
+
                 </h:form>
             </p:layoutUnit> 
             <p:layoutUnit position="center" style="position: absolute; bottom: 0">
                 <ui:insert name="centro">
                     index
                 </ui:insert>
-                
+
             </p:layoutUnit>
-            
+
         </p:layout>
-        
+
         <br />
-        
+
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Página de boas-vindas do Primefaces" />
     </h:body>
 </html>
 

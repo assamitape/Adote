@@ -62,3 +62,104 @@
     height: auto;
     width: 115px;
 }
+
+#u3711-4
+{
+	z-index: 249;
+	width: 139px;
+	min-height: 13px;
+	background-color: transparent;
+	text-align: center;
+	color: #FFD400;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 13px;
+	left: 320px;
+}
+
+#u3713-4
+{
+	z-index: 253;
+	width: 111px;
+	min-height: 13px;
+	background-color: transparent;
+	text-align: center;
+	color: #FFD400;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 13px;
+	left: 480px;
+}
+
+#u3347-bw
+{
+	z-index: 240;
+	min-height: 37px;
+	margin-top: -1363px;
+}
+#u3347
+{
+	z-index: 240;
+	min-height: 37px;
+	background-color: #253440;
+	padding-bottom: 3px;
+}
+#u3352-4
+{
+	z-index: 245;
+	width: 139px;
+	min-height: 13px;
+	background-color: transparent;
+	text-align: center;
+	color: #FFD400;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 13px;
+	left: 614px;
+}
+#u3706-4
+{
+	z-index: 257;
+	width: 139px;
+	min-height: 13px;
+	background-color: transparent;
+	text-align: center;
+	color: #FFD400;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 13px;
+	left: 720px;
+}
+#u3708-4
+{
+	z-index: 261;
+	width: 41px;
+	min-height: 13px;
+	background-color: transparent;
+	text-align: center;
+	color: #FFD400;
+	font-family: '__Hurme Geometric Sans 3_5';
+	font-weight: 400;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 13px;
+	left: 941px;
+}
+#u3695
+{
+	z-index: 265;
+	width: 35px;
+	background-color: transparent;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 2px;
+	left: 1045px;
+}

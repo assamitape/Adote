@@ -7,79 +7,75 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:decorate template="padrao.xhtml">
         <ui:define name="conteudo">
-            <center>
-                <h:form id="formCadCliente">
-                  
-                    <p:tooltip/>
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
-                    <h:panelGrid columns="3" id="gridclientes">
+            <h:form id="formCadCliente" >
 
-                        <p:outputLabel value="Email: "/>
-                        <p:inputText id="email" value="#{clienteController.cliente.email}" required="true" requiredMessage="O campo nome deve ser preenchido"/>
-                        <p:message for="email"/>
-                        
-                        <p:outputLabel value="Senha: "/>
-                        <p:password id="senha" value="#{clienteController.cliente.senha}" required="true" requiredMessage="O campo senha deve ser preenchido"/>
-                        <p:message for="senha"/>
+                <p:tooltip/>
+                <!--<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />-->
+                <center>
+                    <!--<p:outputLabel value="nome: "/>-->
+                    <p:inputText size="30" id="nome" styleClass="campos" placeholder="Nome" value="#{clienteController.cliente.nome}" required="true" requiredMessage="O campo nome deve ser preenchido"/>
+                    <p:message for="nome"/>
 
-                        <p:outputLabel value="nome: "/>
-                        <p:inputText id="nome" value="#{clienteController.cliente.nome}" required="true" requiredMessage="O campo raça deve ser preenchido"/>
-                        <p:message for="nome"/>
+                    <!--                        <p:outputLabel value="Email: "/>-->
+                    <p:inputText size="30" styleClass="campos" placeholder="Email" id="email" value="#{clienteController.cliente.email}" required="true" requiredMessage="O campo email deve ser preenchido"/>
+                    <p:message for="email"/>
 
-                        <p:outputLabel value="telefone: "/>
-                        <p:inputMask id="telefone" mask="(99)9999-99999"  value="#{ clienteController.cliente.telefone}"/>
-                        <p:message for="telefone"/>
-                       
-                        <p:outputLabel value="Estado "/>
-                        <p:selectOneMenu id="estado" value="#{ clienteController.cliente.estado}" required="true">
-                            <f:selectItem itemLabel="Selecione" itemValue=""/>
-                            <f:selectItem itemLabel="Acre" itemValue="AC"/>
-                            <f:selectItem itemLabel="Alagoas" itemValue="AL"/>
-                            <f:selectItem itemLabel="Amapá" itemValue="AP"/>
-                            <f:selectItem itemLabel="Amazonas" itemValue="AM"/>
-                            <f:selectItem itemLabel="Bahia" itemValue="BA"/>
-                            <f:selectItem itemLabel="Ceará" itemValue="CE"/>
-                            <f:selectItem itemLabel="Distrito Federal" itemValue="DF"/>
-                            <f:selectItem itemLabel="Espírito Santo" itemValue="ES"/>
-                            <f:selectItem itemLabel="Goiás" itemValue="GO"/>
-                            <f:selectItem itemLabel="Maranhão" itemValue="MA"/>
-                            <f:selectItem itemLabel="Mato Grosso" itemValue="MT"/>
-                            <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS"/>
-                            <f:selectItem itemLabel="Minas Gerais" itemValue="MG"/>
-                            <f:selectItem itemLabel="Pará" itemValue="PR"/>
-                            <f:selectItem itemLabel="Paraíba" itemValue="PB"/>
-                            <f:selectItem itemLabel="Pernambuco" itemValue="PE"/>
-                            <f:selectItem itemLabel="Piauí" itemValue="PI"/>
-                            <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ"/>
-                            <f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN"/>
-                            <f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS"/>
-                            <f:selectItem itemLabel="Rondônia" itemValue="RO"/>
-                            <f:selectItem itemLabel="Roraima" itemValue="RR"/>
-                            <f:selectItem itemLabel="Santa Catarina" itemValue="SC"/>
-                            <f:selectItem itemLabel="São Paulo" itemValue="SP"/>
-                            <f:selectItem itemLabel="Sergipe" itemValue="SE"/>
-                            <f:selectItem itemLabel="Tocantins" itemValue="TO"/>
+                    <!--<p:outputLabel value="Senha: "/>-->
+                    <p:password  size="30" styleClass="campos" id="senha" placeholder="Senha" value="#{clienteController.cliente.senha}" required="true" requiredMessage="O campo senha deve ser preenchido"/>
+                    <p:message for="senha"/>
 
-                        </p:selectOneMenu>    
-                        <p:message for="estado"/>
+                    <!--<p:outputLabel value="telefone: "/>-->
+                    <p:inputMask size="30" styleClass="campos"   id="telefone" placeholder="Telefone (99)9999-99999" mask="(99)9999-99999"  value="#{ clienteController.cliente.telefone}"/>
+                    <p:message for="telefone"/>
 
-                        <p:outputLabel value="Cidade "/>
-                        <p:inputText id="cidade" value="#{clienteController.cliente.cidade}" required="true" requiredMessage="O cidade deve ser preenchida"/>
-                        <p:message for="cidade"/>
+                    <!--<p:outputLabel value="Estado "/>-->
+                    <p:selectOneMenu style=" width:308px; margin-top:20px; height: 30px; font-size: 20px;" id="estado"  value="#{ clienteController.cliente.estado}" required="true" requiredMessage="O campo estado deve ser preenchido">
+                        <f:selectItem itemLabel="Estado"  id="EstadoDefault" itemValue=""/>
+                        <f:selectItem itemLabel="Acre" itemValue="AC"/>
+                        <f:selectItem itemLabel="Alagoas" itemValue="AL"/>
+                        <f:selectItem itemLabel="Amapá" itemValue="AP"/>
+                        <f:selectItem itemLabel="Amazonas" itemValue="AM"/>
+                        <f:selectItem itemLabel="Bahia" itemValue="BA"/>
+                        <f:selectItem itemLabel="Ceará" itemValue="CE"/>
+                        <f:selectItem itemLabel="Distrito Federal" itemValue="DF"/>
+                        <f:selectItem itemLabel="Espírito Santo" itemValue="ES"/>
+                        <f:selectItem itemLabel="Goiás" itemValue="GO"/>
+                        <f:selectItem itemLabel="Maranhão" itemValue="MA"/>
+                        <f:selectItem itemLabel="Mato Grosso" itemValue="MT"/>
+                        <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS"/>
+                        <f:selectItem itemLabel="Minas Gerais" itemValue="MG"/>
+                        <f:selectItem itemLabel="Pará" itemValue="PR"/>
+                        <f:selectItem itemLabel="Paraíba" itemValue="PB"/>
+                        <f:selectItem itemLabel="Pernambuco" itemValue="PE"/>
+                        <f:selectItem itemLabel="Piauí" itemValue="PI"/>
+                        <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ"/>
+                        <f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN"/>
+                        <f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS"/>
+                        <f:selectItem itemLabel="Rondônia" itemValue="RO"/>
+                        <f:selectItem itemLabel="Roraima" itemValue="RR"/>
+                        <f:selectItem itemLabel="Santa Catarina" itemValue="SC"/>
+                        <f:selectItem itemLabel="São Paulo" itemValue="SP"/>
+                        <f:selectItem itemLabel="Sergipe" itemValue="SE"/>
+                        <f:selectItem itemLabel="Tocantins" itemValue="TO"/>
 
-                        <p:outputLabel value="Bairro "/>
-                        <p:inputText id="bairro" value="#{clienteController.cliente.bairro}" required="true" requiredMessage="A senha deve ser preenchida"/>
-                        <p:message for="bairro"/>
+                    </p:selectOneMenu>    
+                    <p:message for="estado"/>
 
-                    </h:panelGrid>
-                    <p:panelGrid columns="1">
-                        <p:commandButton value="Salvar" rendered="#{clienteController.isExibeBtnSalvar()}" update="messages" actionListener="#{clienteController.salvaCliente()}"/>
-                        <p:commandButton value="Alterar" rendered="#{clienteController.isExibeBtnAlterar()}" update="messages" action="#{clienteController.alteraCliente()}"/>
-                    </p:panelGrid>
+                    <!--<p:outputLabel value="Cidade "/>-->
+                    <p:inputText id="cidade" styleClass="campos" size="30" placeholder="Cidade" value="#{clienteController.cliente.cidade}" required="true" requiredMessage="O campo cidade deve ser preenchido"/>
+                    <p:message for="cidade"/>
 
-                </h:form>
-          </center>
+                    <!--<p:outputLabel value="Bairro "/>-->
+                    <p:inputText id="bairro" styleClass="campos" size="30" placeholder="Bairro" value="#{clienteController.cliente.bairro}" required="true" requiredMessage="O campo bairro deve ser preenchido"/>
+                    <p:message for="bairro"/>
+
+
+                    <p:commandButton value="Salvar" style="margin-top:20px;"  rendered="#{clienteController.isExibeBtnSalvar()}" actionListener="#{clienteController.salvaCliente()}"/>
+                    <p:commandButton value="Alterar" style="margin-top:20px;" rendered="#{clienteController.isExibeBtnAlterar()}"  action="#{clienteController.alteraCliente()}"/>
+                </center>
+            </h:form>
+
         </ui:define>
     </ui:decorate>
 

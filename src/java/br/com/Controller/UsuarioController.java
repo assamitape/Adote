@@ -136,8 +136,9 @@ public class UsuarioController implements Serializable{
     }*/
     
     public void logout(){
-        user.logout();
         usuario = null;
+        user.logout();
+        
     }
 
     public String controlaTelaLogin() throws IOException{

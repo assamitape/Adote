@@ -4,6 +4,7 @@ import br.com.Bean.AnimalBean;
 import br.com.Utilitarios.Conexao;
 import java.sql.PreparedStatement;
 import br.com.Bean.ClienteBean;
+import br.com.Bean.ClienteConsultaBean;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import br.com.Utilitarios.Utilidades;
 
 public class ClienteDAO implements Serializable {
 
@@ -37,7 +39,7 @@ public class ClienteDAO implements Serializable {
 
             stm.setString(1, cliente.getNome());
             stm.setString(2, cliente.getEmail());
-            stm.setString(3, cliente.getSenha());
+            stm.setString(3, Utilidades.cripto(cliente.getSenha()));
             stm.setString(4, cliente.getTelefone());
             cliente.setSnAtivo("S");
             stm.setString(5, cliente.getSnAtivo());
@@ -86,7 +88,6 @@ public class ClienteDAO implements Serializable {
             stm.execute();
 
             //con.commit();
-
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,12 +101,99 @@ public class ClienteDAO implements Serializable {
         }
     }
 
-    public boolean excluirCliente(ClienteBean cliente) throws SQLException {
+    public String excluirCliente(ClienteBean cliente) throws SQLException {
         final boolean isConnSupplied = (userConn != null);
         PreparedStatement stm = null;
         Connection con = null;
+        PreparedStatement stmAnimalCli = null;
+        ResultSet rsAnimalCli = null;
+        String idsAnimais = "";
+
         try {
-            String sql = "DELETE FROM CLIENTE WHERE ID = ?";
+
+            String sqlAnimalCli = "select id from animal where id_cliente = ?";
+            
+            con = isConnSupplied ? userConn : Conexao.getConnection();
+            stmAnimalCli = con.prepareStatement(sqlAnimalCli);
+            
+            stmAnimalCli.setInt(1, cliente.getId());
+            
+            rsAnimalCli = stmAnimalCli.executeQuery();
+
+            //lista os animais desse dono
+            while (rsAnimalCli.next()) {
+                if (idsAnimais.isEmpty()) {
+                    idsAnimais = rsAnimalCli.getString("id");
+                } else {
+                    idsAnimais = idsAnimais + ", " + rsAnimalCli.getString("id");
+                }
+            }
+
+            if (!idsAnimais.isEmpty()) {
+                return "Não foi possível deletar, este cliente possui os animais " + idsAnimais;
+            } else {
+
+                String sql = "DELETE FROM CLIENTE WHERE ID = ?";
+                stm = con.prepareStatement(sql);
+
+                stm.setInt(1, cliente.getId());
+                stm.execute();
+                //con.commit();
+
+                return "";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return "Aconteceu um Erro Na tentativa de deleção, Favor reportar o problema.";
+        } finally {
+            Conexao.close(stm);
+            Conexao.close(stmAnimalCli);
+            Conexao.close(rsAnimalCli);
+            if (!isConnSupplied) {
+                Conexao.close(con);
+                Conexao.close(stm);
+            }
+        }
+    }
+
+    public boolean ativarCliente(ClienteBean cliente) throws SQLException {
+
+        final boolean isConnSupplied = (userConn != null);
+        PreparedStatement stm = null;
+        Connection con = null;
+
+        try {
+            String sql = "UPDATE CLIENTE SET SN_ATIVO = 'S' WHERE ID = ?";
+
+            con = isConnSupplied ? userConn : Conexao.getConnection();
+            stm = con.prepareStatement(sql);
+
+            stm.setInt(1, cliente.getId());
+            stm.execute();
+            //con.commit();
+
+            return true;
+
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            Conexao.close(stm);
+            if (!isConnSupplied) {
+                Conexao.close(con);
+                Conexao.close(stm);
+            }
+        }
+    }
+
+    public boolean desativarCliente(ClienteBean cliente) throws SQLException {
+
+        final boolean isConnSupplied = (userConn != null);
+        PreparedStatement stm = null;
+        Connection con = null;
+
+        try {
+            String sql = "UPDATE CLIENTE SET SN_ATIVO = 'N' WHERE ID = ?";
 
             con = isConnSupplied ? userConn : Conexao.getConnection();
             stm = con.prepareStatement(sql);
@@ -129,22 +217,24 @@ public class ClienteDAO implements Serializable {
     }
 
     public List<ClienteBean> listarClientes() throws SQLException {
+
+        List<ClienteBean> lista = new ArrayList<>();
         final boolean isConnSupplied = (userConn != null);
         PreparedStatement stm = null;
         Connection con = null;
         ResultSet rs = null;
 
-        List<ClienteBean> lista = new ArrayList<ClienteBean>();
-
         try {
 
-            String sql = "SELECT ID, NOME, EMAIL, TELEFONE, SN_ATIVO, ESTADO, CIDADE, BAIRRO FROM CLIENTE";
+            String sql = "SELECT ID, NOME, EMAIL, TELEFONE, SN_ATIVO, ESTADO, CIDADE, BAIRRO FROM CLIENTE ORDER BY ID ";
             con = isConnSupplied ? userConn : Conexao.getConnection();
             stm = con.prepareStatement(sql);
+
             rs = stm.executeQuery();
 
             while (rs.next()) {
-                ClienteBean cliente = ClienteBean.getInstancia();
+
+                ClienteBean cliente = new ClienteBean();
 
                 cliente.setId(rs.getInt("ID"));
                 cliente.setNome(rs.getString("NOME"));
@@ -157,7 +247,9 @@ public class ClienteDAO implements Serializable {
 
                 lista.add(cliente);
             }
+
             return lista;
+
         } catch (Exception ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return lista;
@@ -242,7 +334,7 @@ public class ClienteDAO implements Serializable {
             con = isConnSupplied ? userConn : Conexao.getConnection();
             stm = con.prepareStatement(sql);
             stm.setString(1, usuario);
-            stm.setString(2, senha);
+            stm.setString(2, Utilidades.cripto(senha));
 
             rs = stm.executeQuery();
 
@@ -286,7 +378,7 @@ public class ClienteDAO implements Serializable {
         Connection con = null;
         ResultSet rs = null;
 
-        ClienteBean cliente = ClienteBean.getInstancia();
+        ClienteConsultaBean clienteCon = ClienteConsultaBean.getInstancia();
         int existe = 0;
 
         try {
@@ -300,14 +392,14 @@ public class ClienteDAO implements Serializable {
             while (rs.next()) {
                 existe = 1;
 
-                cliente.setId(rs.getInt("ID"));
-                cliente.setNome(rs.getString("NOME"));
-                cliente.setSnAtivo(rs.getString("SN_ATIVO"));
-                cliente.setEmail(rs.getString("EMAIL"));
-                cliente.setTelefone(rs.getString("TELEFONE"));
-                cliente.setEstado(rs.getString("ESTADO"));
-                cliente.setCidade(rs.getString("CIDADE"));
-                cliente.setBairro(rs.getString("BAIRRO"));
+                clienteCon.setId(rs.getInt("ID"));
+                clienteCon.setNome(rs.getString("NOME"));
+                clienteCon.setSnAtivo(rs.getString("SN_ATIVO"));
+                clienteCon.setEmail(rs.getString("EMAIL"));
+                clienteCon.setTelefone(rs.getString("TELEFONE"));
+                clienteCon.setEstado(rs.getString("ESTADO"));
+                clienteCon.setCidade(rs.getString("CIDADE"));
+                clienteCon.setBairro(rs.getString("BAIRRO"));
 
             }
 
@@ -391,13 +483,12 @@ public class ClienteDAO implements Serializable {
             con = isConnSupplied ? userConn : Conexao.getConnection();
             stm = con.prepareStatement(sql);
 
-            stm.setString(1, novaSenha);
+            stm.setString(1, Utilidades.cripto(novaSenha));
             stm.setString(2, usuarioEmail);
 
             stm.execute();
 
             //con.commit();
-
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -412,5 +503,4 @@ public class ClienteDAO implements Serializable {
             }
         }
     }
-
 }
