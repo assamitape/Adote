@@ -15,7 +15,7 @@
         <p:layoutUnit  position="center" >
             <h:form>
                 <h:outputText value="#{usuarioLogadoController.controlaTelaLogin()}"/> 
-                <p:growl id="growlLogin"  sticky="true" />
+                <!--<p:growl id="growlLogin"  sticky="true" />-->
                 <p:messages id="messagesLogin" showDetail="true" autoUpdate="true" closable="true" />
 
                 <p:dialog header="Área Restrita" visible="true" closable="false" draggable="false" resizable="false" width="420">
@@ -29,7 +29,7 @@
                             <br/>
                         </h:panelGrid>
 
-                        <p:commandButton value="Entrar" update="growlLogin" actionListener="#{usuarioLogadoController.fazerLogin(usuarioLogadoController.user.login, usuarioLogadoController.user.senha)}" />
+                        <p:commandButton value="Entrar"  actionListener="#{usuarioLogadoController.fazerLogin(usuarioLogadoController.user.login, usuarioLogadoController.user.senha)}" />
                         <br/> <br/>
 
                         <!--<p:commandLink value="Esqueci Minha Senha" oncomplete="PF('Dialog').show()" />-->

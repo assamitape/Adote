@@ -13,7 +13,7 @@
         <ui:define name="conteudo">
             <p:layout>
                
-                <p:layoutUnit position="center"  style="max-width: 100%" styleClass="meusAnimais">
+                <p:layoutUnit position="center"  style="max-width: 100%" styleClass="meusanimais">
                     <center> 
                         <p:panel visible="false">
                             <h:outputText value="#{clienteLogadoController.verificaLogado()}" />
@@ -23,7 +23,7 @@
                         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
                         <!--<p:dataScroller value="#{clienteController.listaAnimalCliente}" var="lista" chunkSize="10" >-->
-                        <p:dataTable id="tableMeusAnimais" value="#{clienteController.listaAnimalCliente}" var="lista" 
+                        <p:dataTable id="tablemeusanimais" value="#{clienteController.listaAnimalCliente}" var="lista" 
                                      selectionMode="single"  emptyMessage="Não há animais cadastrados." selection="#{animalController.animal}" rowKey="#{lista.id}">
 
 <!--                        <p:column headerText="ID">
@@ -44,9 +44,9 @@
                             </p:outputLabel>
                         </p:column>
 
-                        <p:column headerText="HISTORICO">
+<!--                        <p:column headerText="HISTORICO">
                             <p:outputLabel value="#{lista.historico}"/>
-                        </p:column>
+                        </p:column>-->
 
                         <p:column headerText="STATUS">
                             <p:outputLabel value="#{lista.getStausExtenso()}"/>
@@ -69,11 +69,11 @@
 
                             <p:commandButton  icon="ui-icon-search" value="Adicionar" actionListener="#{animalController.novoAnimal()}"  action="/cadanimais?faces-redirect=true" />
 
-                            <p:commandButton  process="tableMeusAnimais" icon="ui-icon-search" value="Editar" actionListener="#{animalController.escondeBtnSalvar()}" action="/cadanimais?faces-redirect=true" />
+                            <p:commandButton  process="tablemeusanimais" icon="ui-icon-search" value="Editar" action="#{animalController.chamaTelaAlterar()}" />
 
-                            <p:commandButton  icon="ui-icon-search" value="Sinalizar Adoção" actionListener="#{animalController.sinalizarAdocao()}" update="tableMeusAnimais"  />
+                            <p:commandButton  icon="ui-icon-search" value="Sinalizar Adoção" actionListener="#{animalController.sinalizarAdocao()}" update="tablemeusanimais"  />
                             
-                            <p:commandButton value="Remover" action="#{animalController.deletaAnimal()}" update="tableMeusAnimais" >
+                            <p:commandButton value="Remover" action="#{animalController.deletaAnimal()}" update="tablemeusanimais" >
                                 <p:confirm header="Atenção" message="Deseja deletar o animal #{lista.nome}?" icon="ui-icon-alert" />
                             </p:commandButton>
 
