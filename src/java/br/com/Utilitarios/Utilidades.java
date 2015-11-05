@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.apache.commons.mail.DefaultAuthenticator;
 
 /**
  *
@@ -27,17 +28,26 @@ public class Utilidades {
 
         try {
 
-            email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail
-            email.setSmtpPort(587);
+            email.setHostName("sv1.k2host-01.com.br"); // o servidor SMTP para envio do e-mail
+            email.setSSLOnConnect(true);
+            email.setSslSmtpPort( "465" );
+            email.setAuthenticator( new DefaultAuthenticator( "adocao@adoteumviralata.com" ,  "kn23md@vi27" ) );
             email.addTo(destinatario, nomeDestinatario); //destinatário
-            email.setFrom("igor.rogeriosilva@gmail.com", "Adote um Vira Lata"); // remetente
+            email.setFrom("adocao@adoteumviralata.com", "Adote um Vira Lata"); // remetente
             email.setSubject(assunto); // assunto do e-mail
             email.setMsg(msg); //conteudo do e-mail
             //  email.setAuthentication("adote1filhote@gmail.com", "vaidarcerto");
-            email.setAuthentication("igor.rogeriosilva@gmail.com", "#KING542270544#");
-            email.setSSL(true);
-//            email.setTLS(true);
+            //  email.setAuthentication("adoteumv@adoteumviralata.com", "kn23md@vi27");
+            email.setSSL(true);  
+            email.setTLS(true);  
             email.send(); //envia o e-mail        
+            
+            /*
+            contas de email oficiais do adote
+            email: adocao@adoteumviralata.com
+            senha: kn23md@vi27
+            
+            */
             return true;
         } catch (EmailException ex) {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);

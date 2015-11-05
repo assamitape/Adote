@@ -325,7 +325,6 @@ public class ClienteDAO implements Serializable {
         ResultSet rs = null;
 
         try {
-
             ClienteBean cliente = ClienteBean.getInstancia();
             boolean logou = false;
 

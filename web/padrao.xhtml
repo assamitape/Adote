@@ -20,10 +20,11 @@
         <link rel="stylesheet" type="text/css" href="css/EstiloGeral.css" />
         <link rel="stylesheet" type="text/css" href="css/site_global.css"/>
         <link rel="stylesheet" type="text/css" href="css/master_a-mestre.css?" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" href="css/#{clienteLogadoController.getBrowserName() == 'Chrome' ? 'indexChrome.css' : 'index.css'}" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/menuDeslogado.css" />
         <link rel="stylesheet" type="text/css" href="css/animaisDisponiveis.css" />
-        <link rel="stylesheet" type="text/css" href="css/cadClientes.css" />
+        <!--<link rel="stylesheet" type="text/css" href="css/cadClientes.css" />-->
+        <link rel="stylesheet" href="css/#{clienteLogadoController.getBrowserName() == 'Chrome' ? 'cadClientesChrome.css' : 'cadClientes.css'}" type="text/css" />
         <link rel="shortcut icon" href="imagens/favicon.ico?61395643"/>
     </h:head>
     <h:body>
@@ -101,11 +102,11 @@
 
                             <div class="clearfix grpelem" id="u3711-4" data-muse-uid="U3711"><!-- content -->
                                 <p:commandLink action="#{clienteController.escondeBtnSalvar()}"  styleClass="menuLink" >
-                                   ATUALIZAR DADOS
+                                    ATUALIZAR DADOS
                                 </p:commandLink>
                             </div>
                             <div class="clearfix grpelem" id="u3713-4" data-muse-uid="U3713">  
-                                <h:link outcome="./meusAnimais.jsf"  value="MEUS ANIMAIS" styleClass="menuLink" />
+                                <h:link outcome="./meusanimais.jsf"  value="MEUS ANIMAIS" styleClass="menuLink" />
                             </div>
                             <div class="clearfix grpelem" id="u3352-4" data-muse-uid="U3352">  
                                 <h:link outcome="./animaisdisponiveis.jsf"  value="REDE DE ADOÇÃO" styleClass="menuLink" />
@@ -129,39 +130,63 @@
                 <div class="position_content" id="pu2292_position_content">
                     <div class="pinned-colelem" id="u2292"><!-- simple frame --></div>
                     <div class="clearfix pinned-colelem" id="u2289-4"><!-- content -->
-                        <p>INÍCIO</p>
+                        <h:outputLink value="http://www.adoteumvira-lata.com/index.html">
+                            <p>INÍCIO</p>
+                        </h:outputLink>
+
                     </div>
                     <div class="pinned-colelem" id="u2285"><!-- simple frame --></div>
-                    <a class="nonblock nontext MuseLinkActive clearfix pinned-colelem" id="u2290-4" href="index.html"><!-- content --><p>ADOTE!</p></a>
+
+                    <!--<h:link outcome="./animaisdisponiveis.jsf" value="adote" id="u2290-4">-->
+                        <a class="nonblock nontext MuseLinkActive clearfix pinned-colelem" id="u2290-4" href="http://www.adoteumviralata.com/adoteumviralata/animaisdisponiveis.jsf" >
+                            <p>ADOTE!</p>
+                        </a>
+                    <!--</h:link>-->
+
+<!--
+                    <h:outputLink  id="u2290-4" value="./animaisdisponiveis.jsf">
+                        <p>ADOTE!</p>
+                    </h:outputLink>-->
+
                     <div class="clearfix pinned-colelem" id="u2398-4"><!-- content -->
-                        <p>INSTITUCIONAL</p>
+
+                        <h:outputLink value="http://www.adoteumvira-lata.com/programa-adote-um-vira-lata--institucional.html">
+                            <p>INSTITUCIONAL</p>
+                        </h:outputLink>
+
                     </div>
                 </div>
             </div>
             <div class="clearfix pinned-colelem" id="u2288-4"><!-- content -->
-                <p>O PROGRAMA</p>
+
+                <h:outputLink value="http://www.adoteumvira-lata.com/programa-adote-um-vira-lata--institucional.html#programa">
+                    <p>O PROGRAMA</p>
+                </h:outputLink>
             </div>
 
             <div class="clearfix colelem" id="pu2286-4"><!-- column -->
                 <div class="position_content" id="pu2286-4_position_content">
                     <div class="clearfix pinned-colelem" id="u2286-4"><!-- content -->
-                        <p>ATIVIDADES</p>
+                        <h:outputLink value="http://www.adoteumvira-lata.com/programa-adote-um-vira-lata--institucional.html#atividades">
+                            <p>ATIVIDADES</p>
+                        </h:outputLink>
+
                     </div>
                     <div class="clearfix pinned-colelem" id="u2287-4"><!-- content -->
-                        <p>NOVA MARCA</p>
+                        <h:outputLink value="http://www.adoteumvira-lata.com/programa-adote-um-vira-lata--institucional.html#nova_marca">
+                            <p>NOVA MARCA</p>
+                        </h:outputLink>
+
                     </div>
                     <div class="clearfix pinned-colelem" id="u2291-4"><!-- content -->
-                        <p>CONTATO</p>
+                        <h:outputLink value="http://www.adoteumvira-lata.com/programa-adote-um-vira-lata--institucional.html#contato">
+                            <p>CONTATO</p>
+                        </h:outputLink>
+
                     </div>
                 </div>
             </div>
 
-            <!--<div class="verticalspacer"></div>-->
-            <!--
-                            </div>
-                        </div>-->
-            <!--            <div class="clearfix" id="page"> column 
-                            <div class="position_content" id="page_position_content">-->
             <div class="conteudo">
                 <br></br>
                 <ui:insert name="conteudo" >

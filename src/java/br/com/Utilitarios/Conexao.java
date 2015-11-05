@@ -13,8 +13,8 @@ public class Conexao {
 
     private static String JDBC_DRIVER = "org.postgresql.Driver";
     public static String JDBC_URL = "jdbc:postgresql://localhost:5432/adoteumv_adoteumcao";
-    private static String JDBC_USER = "postgres";
-    private static String JDBC_PASSWORD = "542270544";
+    private static String JDBC_USER = "adoteumv_admin";
+    private static String JDBC_PASSWORD = "adote@2015";
     
     private static Driver driver = null;
 

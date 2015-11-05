@@ -56,7 +56,7 @@ public class UsuarioLogadoController implements Serializable  {
         user = null;  
         try {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./loginAdmin.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("./loginadmin.jsf");
             
         } catch (IOException ex) {
             Logger.getLogger(UsuarioLogadoController.class.getName()).log(Level.SEVERE, null, ex);

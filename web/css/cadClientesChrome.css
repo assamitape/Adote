@@ -21,11 +21,19 @@
     font-size: 20px!important;
 }
 
+.ui-selectonemenu-label {
+ width:348px !important;
+ 
+ /*margin-top:20px!important;*/
+ height: 100% !important;
+ /*font-size: 20px!important;*/
+}
+
 .estado {
     margin-top:20px!important; 
     height: 30px!important; 
     font-size: 20px!important;
-    width: 310px!important;
+    width: 350px!important;
 }
 
 .ui-selectonemenu-label  {

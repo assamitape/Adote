@@ -8,23 +8,21 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Locale;
-import java.util.Random;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 @ManagedBean(name = "clienteController")
 //@ApplicationScoped
-@ApplicationScoped
+@SessionScoped
 public class ClienteController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -120,6 +118,9 @@ public class ClienteController implements Serializable {
     }
 
     public ClienteBean getCliente() {
+        if (cliente == null ){
+            cliente = ClienteBean.getInstancia();
+        }
         return cliente;
     }
 
@@ -185,7 +186,7 @@ public class ClienteController implements Serializable {
             if (clienteDAO.alterarCliente(cliente)) {
                 FacesContext contexto = FacesContext.getCurrentInstance();
                 contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "alterado com sucesso!", ""));
-                return "/meusAnimais?faces-redirect=true";
+                return "/meusanimais?faces-redirect=true";
             }
 
         } catch (SQLException ex) {
@@ -331,7 +332,7 @@ public class ClienteController implements Serializable {
 //          contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, errLogin, ""));            
 //          return "";
 //       }else{
-//          return "/meusAnimais?faces-redirect=true";  
+//          return "/meusanimais?faces-redirect=true";  
 //       }
 //
 //       return user.fazerLogin(cliente.getEmail(), cliente.getSenha());
@@ -379,8 +380,8 @@ public class ClienteController implements Serializable {
         if (retorno.isEmpty() || retorno.equals("")) {
             // user.fazerLogin(cliente.getEmail(), cliente.getSenha());
 
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./meusAnimais.jsf");
-            //    return "/meusAnimais?faces-redirect=true";
+            FacesContext.getCurrentInstance().getExternalContext().redirect("./meusanimais.jsf");
+            //    return "/meusanimais?faces-redirect=true";
 
         }
         return "";

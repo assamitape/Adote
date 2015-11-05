@@ -30,7 +30,7 @@
                     <p:message for="telefone"/>
 
                     <!--<p:outputLabel value="Estado "/>-->
-                    <p:selectOneMenu style=" width:308px; margin-top:20px; height: 30px; font-size: 20px;" id="estado"  value="#{ clienteController.cliente.estado}" required="true" requiredMessage="O campo estado deve ser preenchido">
+                    <p:selectOneMenu  id="estado" class="estado" value="#{ clienteController.cliente.estado}" required="true" requiredMessage="O campo estado deve ser preenchido">
                         <f:selectItem itemLabel="Estado"  id="EstadoDefault" itemValue=""/>
                         <f:selectItem itemLabel="Acre" itemValue="AC"/>
                         <f:selectItem itemLabel="Alagoas" itemValue="AL"/>
@@ -71,8 +71,8 @@
                     <p:message for="bairro"/>
 
 
-                    <p:commandButton value="Salvar" style="margin-top:20px;"  rendered="#{clienteController.isExibeBtnSalvar()}" actionListener="#{clienteController.salvaCliente()}"/>
-                    <p:commandButton value="Alterar" style="margin-top:20px;" rendered="#{clienteController.isExibeBtnAlterar()}"  action="#{clienteController.alteraCliente()}"/>
+                    <p:commandButton  value="Salvar" style="margin-top:20px;"  rendered="#{clienteController.isExibeBtnSalvar()}" actionListener="#{clienteController.salvaCliente()}"/>
+                    <p:commandButton  value="Alterar" style="margin-top:20px;" rendered="#{clienteController.isExibeBtnAlterar()}"  action="#{clienteController.alteraCliente()}"/>
                 </center>
             </h:form>
 

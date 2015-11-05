@@ -33,7 +33,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "animalController")
-@ApplicationScoped
+@SessionScoped
 //@SessionScoped
 public class AnimalController implements Serializable {
 
@@ -183,6 +183,9 @@ public class AnimalController implements Serializable {
     }
 
     public AnimalBean getAnimal() {
+        if (animal == null) {
+            animal = new AnimalBean();
+        }
         return animal;
     }
 
@@ -211,7 +214,7 @@ public class AnimalController implements Serializable {
         try {
 
             AnimalDAO animalDAO = new AnimalDAO();
-            
+
             listaAnimaisParaDoacao = new ListDataModel(animalDAO.listarAnimalParaDoacao());
             return listaAnimaisParaDoacao;
         } catch (SQLException ex) {
@@ -239,7 +242,7 @@ public class AnimalController implements Serializable {
             if (animalDAO.salvarAnimal(animal)) {
                 FacesContext contexto = FacesContext.getCurrentInstance();
                 contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "cadastro com sucesso!", ""));
-                return "/meusAnimais?faces-redirect=true";
+                return "/meusanimais?faces-redirect=true";
             }
         } catch (SQLException ex) {
             Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,7 +259,7 @@ public class AnimalController implements Serializable {
             if (animalDAO.alterarAnimal(animal)) {
                 FacesContext contexto = FacesContext.getCurrentInstance();
                 contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "alterado com sucesso!", ""));
-                return "/meusAnimais?faces-redirect=true";
+                return "/meusanimais?faces-redirect=true";
             }
         } catch (SQLException ex) {
             Logger.getLogger(AnimalController.class.getName()).log(Level.SEVERE, null, ex);
@@ -355,6 +358,22 @@ public class AnimalController implements Serializable {
         setExibeBtnSalvar(false);
     }
 
+    public String chamaTelaAlterar() {
+
+        AnimalDAO animalDAO = new AnimalDAO();
+        FacesContext contexto = FacesContext.getCurrentInstance();
+
+        if (animal == null) {
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Um animal precisa ser selecionado!", ""));
+            return "";
+        } else {
+            escondeBtnSalvar();
+            return "/cadanimais?faces-redirect=true";
+
+        }
+
+    }
+
     public void sinalizarAdocao() {
         try {
             AnimalDAO animalDAO = new AnimalDAO();
@@ -438,9 +457,9 @@ public class AnimalController implements Serializable {
             AnimalDAO animalDAO = new AnimalDAO();
 
             File folder = new File(sContext.getRealPath("/temp"));
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
+//            if (!folder.exists()) {
+//                folder.mkdirs();
+//            }
 
             for (AnimalBean a : animalDAO.listarAnimalParaDoacao()) {
 
@@ -467,12 +486,12 @@ public class AnimalController implements Serializable {
             File f;
 
             File folder = new File(sContext.getRealPath("/temp"));
-            if (folder.exists()) {
-                folder.delete();
-                folder.mkdirs();
-            } else {
-                folder.mkdirs();
-            }
+//            if (folder.exists()) {
+//                folder.delete();
+//                folder.mkdirs();
+//            } else {
+//                folder.mkdirs();
+//            }
 
             for (AnimalBean a : animalDAO.listarAnimalParaDoacao()) {
 

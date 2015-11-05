@@ -2,18 +2,12 @@ package br.com.DAO;
 
 import br.com.Utilitarios.Conexao;
 import br.com.Bean.AnimalBean;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

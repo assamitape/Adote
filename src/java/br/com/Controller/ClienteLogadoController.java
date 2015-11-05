@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "clienteLogadoController")
@@ -72,12 +73,17 @@ public class ClienteLogadoController implements Serializable {
 
         try {
 
+            /* usuário e senha padrão de testes
+            usuário: igor.rogeriosilva@gmail.com
+            senha: 1746365607
+            */
+            
             errLogin = clienteDAO.logar(usuario, senha);
             setUser(ClienteBean.getInstancia());
 
             if (errLogin.isEmpty()) {
                 setClienteLogado(Boolean.TRUE);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("./meusAnimais.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("./meusanimais.jsf");
             } else {
                 setClienteLogado(Boolean.FALSE);
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -95,7 +101,7 @@ public class ClienteLogadoController implements Serializable {
         if (clienteLogado) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Você já está conectado ao sistema."));
-            FacesContext.getCurrentInstance().getExternalContext().redirect("./meusAnimais.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("./meusanimais.jsf");
         }
         return "";
 
@@ -132,7 +138,7 @@ public class ClienteLogadoController implements Serializable {
                         + "modificar par    a uma senha de sua preferência." + "\n" + " Nova senha: " + novaSenha)) {
                     contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uma nova senha foi gerada e enviada para o endereço " + email, ""));
                 }else{
-                    contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha no envio do email, por favor contacte a administração!" + email, ""));
+                    contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha no envio do email, por favor contacte a administração!", ""));
                 }
 
             }
@@ -154,4 +160,34 @@ public class ClienteLogadoController implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getBrowserName() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+
+        
+        if(userAgent.contains("MSIE")){ 
+            System.out.println("Internet Explorer");
+            return "Internet Explorer";
+        }
+        if(userAgent.contains("Firefox")){ 
+            System.out.println("Firefox");
+            return "Firefox";
+        }
+        if(userAgent.contains("Chrome")){ 
+            System.out.println("Chrome");
+            return "Chrome";
+        }
+        if(userAgent.contains("Opera")){ 
+            System.out.println("Opera");
+            return "Opera";
+        }
+        if(userAgent.contains("Safari")){ 
+            System.out.println("Safari");
+            return "Safari";
+        }
+        System.out.println("Unknown");
+        return "Unknown";
+    }    
+    
 }

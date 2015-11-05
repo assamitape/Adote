@@ -9,7 +9,7 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-        
+                        
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
@@ -51,5 +51,13 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>client</param-value>
     </context-param>
+
+
+<!--    <listener>
+        <listener-class>
+            org.quartz.ee.servlet.QuartzInitializerListener
+        </listener-class>
+    </listener>-->
+    
 
 </web-app>
